@@ -13,6 +13,11 @@ source init-env-nodejs19.sh
 npm start
 ```
 
+deploy
+```
+npm run deploy
+```
+
 
 github pages
 ```
