@@ -1,7 +1,7 @@
 {
    "name": "epf",
    "version": "0.1.0",
-   "homepage": "weetech-software.github.io/epf",
+   "homepage": "https://weetech-software.github.io/epf",
    "private": true,
    "dependencies": {
       "@emotion/react": "^11.10.6",
