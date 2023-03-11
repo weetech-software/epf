@@ -12,3 +12,17 @@ start
 source init-env-nodejs19.sh
 npm start
 ```
+
+
+github pages
+```
+1. npm install gh-pages --save-dev
+
+2. add to package.json
+  "homepage": "weetech-software.github.io/epf",
+
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
+
+3. 
+```
