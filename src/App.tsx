@@ -66,7 +66,7 @@ function App() {
   const initialState : EPF = {
     year: new Date().getFullYear() - 1,
     //year: 2012,
-    dividend_interest: 5.60,
+    dividend_interest: 5.50,
     open_acc1: 70000,
     open_acc2: 30000,
     get total () {
