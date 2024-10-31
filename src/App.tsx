@@ -32,45 +32,51 @@ type EPF = {
   dividend_interest: number,
 
   open_acc1: number,
-  open_acc2: number,  
+  open_acc2: number,
+  open_acc3: number,
   total: number,
 
   month: {
-    jan : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    feb : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    mar : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    apr : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    may : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    jun : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    jul : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    aug : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    sep : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    oct : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    nov : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
-    dec : { employer : number, employee : number, total_emp : number, account1: number, account2: number, total: number},
+    jan : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    feb : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    mar : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    apr : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    may : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    jun : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    jul : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    aug : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    sep : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    oct : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    nov : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
+    dec : { employer : number, employee : number, total_emp : number, account1: number, account2: number, account3: number, total: number},
   },
 
   dividend_acc1: number,
   dividend_acc2: number,
+  dividend_acc3: number,
   dividend_total: number,
 
   balance_acc1: number,
   balance_acc2: number,
+  balance_acc3: number,
   balance_total: number,
 }
 
 function App() {
 
-  const ratio = 0.7;
+  const ratioAcc1 = 0.75;
+  const ratioAcc2 = 0.15;
+  const ratioAcc3 = 0.10;
 
   const initialState : EPF = {
     year: new Date().getFullYear() - 1,
     //year: 2012,
     dividend_interest: 5.50,
-    open_acc1: 70000,
-    open_acc2: 30000,
+    open_acc1: 75000,
+    open_acc2: 15000,
+    open_acc3: 10000,
     get total () {
-      return this.open_acc1 + this.open_acc2;
+      return this.open_acc1 + this.open_acc2 + this.open_acc3;
     },
     month: {
       jan : { employer : 1100, employee : 1200, 
@@ -79,12 +85,13 @@ function App() {
               total_emp : 2300,
               //get account1() { return initialState.open_acc1 + this.total_emp * ratio},
               //set account1(v) { this.account1 = v},
-              account1: 71610,
+              account1: 76725,
               //get account2() { return initialState.open_acc2 + this.total_emp * (1-ratio)},
               //set account2(v) { this.account2 = v},
-              account2: 30690,
+              account2: 15345,
               //get total() { return this.account1 + this.account2},
               //set total(v) { this.total = v},
+              account3: 10230,
               total: 102300,
             },
       feb : { employer : 1100, employee : 1200,
@@ -93,12 +100,13 @@ function App() {
               total_emp : 2300,
               //get account1() { return initialState.month.jan.account1 + this.total_emp * ratio},
               //set account1(v) { this.account1 = v},
-              account1: 73220,
+              account1: 78450,
               //get account2() { return initialState.month.jan.account2 + this.total_emp * (1-ratio)},
               //set account2(v) { this.account2 = v},
-              account2: 31380,
+              account2: 15690,
               //get total() { return this.account1 + this.account2},
               //set total(v) { this.total = v},
+              account3: 10460,
               total: 104600,
             },
       mar : { employer : 1100, employee : 1200,
@@ -106,10 +114,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.feb.account1 + this.total_emp * ratio},
-              account1: 74830,
+              account1: 80175,
               //get account2() { return initialState.month.feb.account2 + this.total_emp * (1-ratio)},
-              account2: 32070,
+              account2: 16035,
               //get total() { return this.account1 + this.account2}
+              account3: 10690,
               total: 106900,
             },
       apr : { employer : 1100, employee : 1200,
@@ -117,10 +126,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.mar.account1 + this.total_emp * ratio},
-              account1: 76440,
+              account1: 81900,
               //get account2() { return initialState.month.mar.account2 + this.total_emp * (1-ratio)},
-              account2: 32760,
+              account2: 16380,
               //get total() { return this.account1 + this.account2}
+              account3: 10920,
               total: 109200,
             },
       may : { employer : 1100, employee : 1200,
@@ -128,10 +138,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.apr.account1 + this.total_emp * ratio},
-              account1: 78050,
+              account1: 83625,
               //get account2() { return initialState.month.apr.account2 + this.total_emp * (1-ratio)},
-              account2: 33450,
+              account2: 16725,
               //get total() { return this.account1 + this.account2}
+              account3: 11150,
               total: 111500,
             },
       jun : { employer : 1100, employee : 1200,
@@ -139,10 +150,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.may.account1 + this.total_emp * ratio},
-              account1: 79660,
+              account1: 85350,
               //get account2() { return initialState.month.may.account2 + this.total_emp * (1-ratio)},
-              account2: 34140,
+              account2: 17070,
               //get total() { return this.account1 + this.account2}
+              account3: 11380,
               total: 113800,
             },
       jul : { employer : 1100, employee : 1200,
@@ -150,10 +162,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.jun.account1 + this.total_emp * ratio},
-              account1: 81270,
+              account1: 87075,
               //get account2() { return initialState.month.jun.account2 + this.total_emp * (1-ratio)},
-              account2: 34830,
+              account2: 17415,
               //get total() { return this.account1 + this.account2}
+              account3: 11610,
               total: 116100,
             },
       aug : { employer : 1100, employee : 1200,
@@ -161,10 +174,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.jul.account1 + this.total_emp * ratio},
-              account1: 82880,
+              account1: 88800,
               //get account2() { return initialState.month.jul.account2 + this.total_emp * (1-ratio)},
-              account2: 35520,
+              account2: 17760,
               //get total() { return this.account1 + this.account2}
+              account3: 11840,
               total: 118400,
             },
       sep : { employer : 1100, employee : 1200,
@@ -172,10 +186,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.aug.account1 + this.total_emp * ratio},
-              account1: 84490,
+              account1: 90525,
               //get account2() { return initialState.month.aug.account2 + this.total_emp * (1-ratio)},
-              account2: 36210,
+              account2: 18105,
               //get total() { return this.account1 + this.account2}
+              account3: 12070,
               total: 120700,
             },
       oct : { employer : 1100, employee : 1200,
@@ -183,10 +198,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.sep.account1 + this.total_emp * ratio},
-              account1: 86100,
+              account1: 92250,
               //get account2() { return initialState.month.sep.account2 + this.total_emp * (1-ratio)},
-              account2: 36900,
+              account2: 18450,
               //get total() { return this.account1 + this.account2}
+              account3: 12300,
               total: 123000,
             },
       nov : { employer : 1100, employee : 1200,
@@ -194,10 +210,11 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.oct.account1 + this.total_emp * ratio},
-              account1: 87710,
+              account1: 93975,
               //get account2() { return initialState.month.oct.account2 + this.total_emp * (1-ratio)},
-              account2: 37590,
+              account2: 18795,
               //get total() { return this.account1 + this.account2}
+              account3: 12530,
               total: 125300,
             },
       dec : { employer : 1100, employee : 1200,
@@ -205,20 +222,23 @@ function App() {
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.nov.account1 + this.total_emp * ratio},
-              account1: 89320,
+              account1: 95700,
               //get account2() { return initialState.month.nov.account2 + this.total_emp * (1-ratio)},
-              account2: 38280,
+              account2: 19140,
               //get total() { return this.account1 + this.account2}
+              account3: 12760,
               total: 127600,
             },
     },
-    dividend_acc1: 4854.48,
-    dividend_acc2: 2080.36,
-    dividend_total: 6934.55,
+    dividend_acc1: 4652.401,
+    dividend_acc2: 930.48,
+    dividend_acc3: 620.32,
+    dividend_total: 6203.201,
 
-    balance_acc1: 94174.18,
-    balance_acc2: 40360.36,
-    balance_total: 134534.55,
+    balance_acc1: 100352.401,
+    balance_acc2: 20070.48,
+    balance_acc3: 13380.32,
+    balance_total: 133803.201,
   };
 
   const [state, setState] = React.useState(initialState);
@@ -230,10 +250,12 @@ function App() {
       employer: state.month.jan.employer,
       employee: state.month.jan.employee,
       total_emp: state.month.jan.employer + state.month.jan.employee,
-      account1: state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratio,
-      account2: state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * (1-ratio),
-      total: (state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratio) + 
-             (state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * (1-ratio)),
+      account1: state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc1,
+      account2: state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc2,
+      account3: state.open_acc3 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc3,
+      total: (state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc1) +
+             (state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc2) +
+             (state.open_acc3 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc3),
     },
     {
       id: "Feb",
@@ -250,6 +272,7 @@ function App() {
              //(state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * (1-ratio)),
       account1: state.month.feb.account1,
       account2: state.month.feb.account2,
+      account3: state.month.feb.account3,
       total: state.month.feb.total,
     },
     {
@@ -260,6 +283,7 @@ function App() {
       total_emp: state.month.mar.employer + state.month.mar.employee,
       account1: state.month.mar.account1,
       account2: state.month.mar.account2,
+      account3: state.month.mar.account3,
       total: state.month.mar.total,
     },
     {
@@ -270,6 +294,7 @@ function App() {
       total_emp: state.month.apr.employer + state.month.apr.employee,
       account1: state.month.apr.account1,
       account2: state.month.apr.account2,
+      account3: state.month.apr.account3,
       total: state.month.apr.total,
     },
     {
@@ -280,6 +305,7 @@ function App() {
       total_emp: state.month.may.employer + state.month.may.employee,
       account1: state.month.may.account1,
       account2: state.month.may.account2,
+      account3: state.month.may.account3,
       total: state.month.may.total,
     },
     {
@@ -290,6 +316,7 @@ function App() {
       total_emp: state.month.jun.employer + state.month.jun.employee,
       account1: state.month.jun.account1,
       account2: state.month.jun.account2,
+      account3: state.month.jun.account3,
       total: state.month.jun.total,
     },
     {
@@ -300,6 +327,7 @@ function App() {
       total_emp: state.month.jul.employer + state.month.jul.employee,
       account1: state.month.jul.account1,
       account2: state.month.jul.account2,
+      account3: state.month.jul.account3,
       total: state.month.jul.total,
     },
     {
@@ -310,6 +338,7 @@ function App() {
       total_emp: state.month.aug.employer + state.month.aug.employee,
       account1: state.month.aug.account1,
       account2: state.month.aug.account2,
+      account3: state.month.aug.account3,
       total: state.month.aug.total,
     },
     {
@@ -320,6 +349,7 @@ function App() {
       total_emp: state.month.sep.employer + state.month.sep.employee,
       account1: state.month.sep.account1,
       account2: state.month.sep.account2,
+      account3: state.month.sep.account3,
       total: state.month.sep.total,
     },
     {
@@ -330,6 +360,7 @@ function App() {
       total_emp: state.month.oct.employer + state.month.oct.employee,
       account1: state.month.oct.account1,
       account2: state.month.oct.account2,
+      account3: state.month.oct.account3,
       total: state.month.oct.total,
     },
     {
@@ -340,6 +371,7 @@ function App() {
       total_emp: state.month.nov.employer + state.month.nov.employee,
       account1: state.month.nov.account1,
       account2: state.month.nov.account2,
+      account3: state.month.nov.account3,
       total: state.month.nov.total,
     },
     {
@@ -350,6 +382,7 @@ function App() {
       total_emp: state.month.dec.employer + state.month.dec.employee,
       account1: state.month.dec.account1,
       account2: state.month.dec.account2,
+      account3: state.month.dec.account3,
       total: state.month.dec.total,
     },
   ];
@@ -361,6 +394,7 @@ function App() {
     label: string;
     account1: number;
     account2: number;
+    account3: number;
     total: number;
   }
 
@@ -369,6 +403,7 @@ function App() {
     label: string;
     account1: number;
     account2: number;
+    account3: number;
     total: number;
   }
 
@@ -377,6 +412,7 @@ function App() {
     label: string;
     account1: number;
     account2: number;
+    account3: number;
     total: number;
   }
 
@@ -388,6 +424,7 @@ function App() {
       label: "Opening Balance",
       account1: state.open_acc1,
       account2: state.open_acc2,
+      account3: state.open_acc3,
       total: state.total,
     },
     ...rows1,
@@ -396,6 +433,7 @@ function App() {
       label: "Dividend Received for Year " + state.year,
       account1: state.dividend_acc1,
       account2: state.dividend_acc2,
+      account3: state.dividend_acc3,
       total: state.dividend_total,
     },
     {
@@ -403,6 +441,7 @@ function App() {
       label: "Balance as of 31st Dec " + state.year,
       account1: state.balance_acc1,
       account2: state.balance_acc2,
+      account3: state.balance_acc3,
       total: state.balance_total,
     },
   ];
@@ -495,6 +534,22 @@ function App() {
       sortable: false,
     },
     {
+      field: "account3",
+      headerName: "Account 3 (RM)",
+      type: "number",
+      width: 120,
+      flex: 1,
+      editable: true,
+      cellClassName: (params: GridCellParams<Row>) => {
+        if (params.id == "Opening Balance") {
+          return "super-app-theme--cell";
+        }
+
+        return "";
+      },
+      sortable: false,
+    },
+    {
       field: "total",
       headerName: "Total (RM)",
       type: "number",
@@ -522,6 +577,7 @@ function App() {
       children: [
         { field: "account1" },
         { field: "account2" },
+        { field: "account3" },
         { field: "total" },
       ],
     },
@@ -573,66 +629,79 @@ function App() {
     // total_emp
     // account 1
     // account 2
+    // account 3
     // total
     newState.month.jan.total_emp = newState.month.jan.employee + newState.month.jan.employer;
-    newState.month.jan.account1 = newState.open_acc1 + (newState.month.jan.total_emp * ratio);
-    newState.month.jan.account2 = newState.open_acc2 + (newState.month.jan.total_emp * (1-ratio));
-    newState.month.jan.total = newState.month.jan.account1 + newState.month.jan.account2;
+    newState.month.jan.account1 = newState.open_acc1 + (newState.month.jan.total_emp * ratioAcc1);
+    newState.month.jan.account2 = newState.open_acc2 + (newState.month.jan.total_emp * ratioAcc2);
+    newState.month.jan.account3 = newState.open_acc3 + (newState.month.jan.total_emp * ratioAcc3);
+    newState.month.jan.total = newState.month.jan.account1 + newState.month.jan.account2 + newState.month.jan.account3;
 
     newState.month.feb.total_emp = newState.month.feb.employee + newState.month.feb.employer;
-    newState.month.feb.account1 = newState.month.jan.account1 + (newState.month.feb.total_emp * ratio);
-    newState.month.feb.account2 = newState.month.jan.account2 + (newState.month.feb.total_emp * (1-ratio));
-    newState.month.feb.total = newState.month.feb.account1 + newState.month.feb.account2;
+    newState.month.feb.account1 = newState.month.jan.account1 + (newState.month.feb.total_emp * ratioAcc1);
+    newState.month.feb.account2 = newState.month.jan.account2 + (newState.month.feb.total_emp * ratioAcc2);
+    newState.month.feb.account3 = newState.month.jan.account3 + (newState.month.feb.total_emp * ratioAcc3);
+    newState.month.feb.total = newState.month.feb.account1 + newState.month.feb.account2 + newState.month.feb.account3;
 
     newState.month.mar.total_emp = newState.month.mar.employee + newState.month.mar.employer;
-    newState.month.mar.account1 = newState.month.feb.account1 + (newState.month.mar.total_emp * ratio);
-    newState.month.mar.account2 = newState.month.feb.account2 + (newState.month.mar.total_emp * (1-ratio));
-    newState.month.mar.total = newState.month.mar.account1 + newState.month.mar.account2;
+    newState.month.mar.account1 = newState.month.feb.account1 + (newState.month.mar.total_emp * ratioAcc1);
+    newState.month.mar.account2 = newState.month.feb.account2 + (newState.month.mar.total_emp * ratioAcc2);
+    newState.month.mar.account3 = newState.month.feb.account3 + (newState.month.mar.total_emp * ratioAcc3);
+    newState.month.mar.total = newState.month.mar.account1 + newState.month.mar.account2 + newState.month.mar.account3;
 
     newState.month.apr.total_emp = newState.month.apr.employee + newState.month.apr.employer;
-    newState.month.apr.account1 = newState.month.mar.account1 + (newState.month.apr.total_emp * ratio);
-    newState.month.apr.account2 = newState.month.mar.account2 + (newState.month.apr.total_emp * (1-ratio));
-    newState.month.apr.total = newState.month.apr.account1 + newState.month.apr.account2;
+    newState.month.apr.account1 = newState.month.mar.account1 + (newState.month.apr.total_emp * ratioAcc1);
+    newState.month.apr.account2 = newState.month.mar.account2 + (newState.month.apr.total_emp * ratioAcc2);
+    newState.month.apr.account3 = newState.month.mar.account3 + (newState.month.apr.total_emp * ratioAcc3);
+    newState.month.apr.total = newState.month.apr.account1 + newState.month.apr.account2 + newState.month.apr.account3;
     
     newState.month.may.total_emp = newState.month.may.employee + newState.month.may.employer;
-    newState.month.may.account1 = newState.month.apr.account1 + (newState.month.may.total_emp * ratio);
-    newState.month.may.account2 = newState.month.apr.account2 + (newState.month.may.total_emp * (1-ratio));
-    newState.month.may.total = newState.month.may.account1 + newState.month.may.account2;
+    newState.month.may.account1 = newState.month.apr.account1 + (newState.month.may.total_emp * ratioAcc1);
+    newState.month.may.account2 = newState.month.apr.account2 + (newState.month.may.total_emp * ratioAcc2);
+    newState.month.may.account3 = newState.month.apr.account3 + (newState.month.may.total_emp * ratioAcc3);
+    newState.month.may.total = newState.month.may.account1 + newState.month.may.account2 + newState.month.may.account3;
 
     newState.month.jun.total_emp = newState.month.jun.employee + newState.month.jun.employer;
-    newState.month.jun.account1 = newState.month.may.account1 + (newState.month.jun.total_emp * ratio);
-    newState.month.jun.account2 = newState.month.may.account2 + (newState.month.jun.total_emp * (1-ratio));
-    newState.month.jun.total = newState.month.jun.account1 + newState.month.jun.account2;
+    newState.month.jun.account1 = newState.month.may.account1 + (newState.month.jun.total_emp * ratioAcc1);
+    newState.month.jun.account2 = newState.month.may.account2 + (newState.month.jun.total_emp * ratioAcc2);
+    newState.month.jun.account3 = newState.month.may.account3 + (newState.month.jun.total_emp * ratioAcc3);
+    newState.month.jun.total = newState.month.jun.account1 + newState.month.jun.account2 + newState.month.jun.account3;
 
     newState.month.jul.total_emp = newState.month.jul.employee + newState.month.jul.employer;
-    newState.month.jul.account1 = newState.month.jun.account1 + (newState.month.jul.total_emp * ratio);
-    newState.month.jul.account2 = newState.month.jun.account2 + (newState.month.jul.total_emp * (1-ratio));
-    newState.month.jul.total = newState.month.jul.account1 + newState.month.jul.account2;
+    newState.month.jul.account1 = newState.month.jun.account1 + (newState.month.jul.total_emp * ratioAcc1);
+    newState.month.jul.account2 = newState.month.jun.account2 + (newState.month.jul.total_emp * ratioAcc2);
+    newState.month.jul.account3 = newState.month.jun.account3 + (newState.month.jul.total_emp * ratioAcc3);
+    newState.month.jul.total = newState.month.jul.account1 + newState.month.jul.account2 + newState.month.jul.account3;
 
     newState.month.aug.total_emp = newState.month.aug.employee + newState.month.aug.employer;
-    newState.month.aug.account1 = newState.month.jul.account1 + (newState.month.aug.total_emp * ratio);
-    newState.month.aug.account2 = newState.month.jul.account2 + (newState.month.aug.total_emp * (1-ratio));
-    newState.month.aug.total = newState.month.aug.account1 + newState.month.aug.account2;
+    newState.month.aug.account1 = newState.month.jul.account1 + (newState.month.aug.total_emp * ratioAcc1);
+    newState.month.aug.account2 = newState.month.jul.account2 + (newState.month.aug.total_emp * ratioAcc2);
+    newState.month.aug.account3 = newState.month.jul.account3 + (newState.month.aug.total_emp * ratioAcc3);
+    newState.month.aug.total = newState.month.aug.account1 + newState.month.aug.account2 + newState.month.aug.account3;
 
     newState.month.sep.total_emp = newState.month.sep.employee + newState.month.sep.employer;
-    newState.month.sep.account1 = newState.month.aug.account1 + (newState.month.sep.total_emp * ratio);
-    newState.month.sep.account2 = newState.month.aug.account2 + (newState.month.sep.total_emp * (1-ratio));
-    newState.month.sep.total = newState.month.sep.account1 + newState.month.sep.account2;
+    newState.month.sep.account1 = newState.month.aug.account1 + (newState.month.sep.total_emp * ratioAcc1);
+    newState.month.sep.account2 = newState.month.aug.account2 + (newState.month.sep.total_emp * ratioAcc2);
+    newState.month.sep.account3 = newState.month.aug.account3 + (newState.month.sep.total_emp * ratioAcc3);
+    newState.month.sep.total = newState.month.sep.account1 + newState.month.sep.account2 + newState.month.sep.account3;
 
     newState.month.oct.total_emp = newState.month.oct.employee + newState.month.oct.employer;
-    newState.month.oct.account1 = newState.month.sep.account1 + (newState.month.oct.total_emp * ratio);
-    newState.month.oct.account2 = newState.month.sep.account2 + (newState.month.oct.total_emp * (1-ratio));
-    newState.month.oct.total = newState.month.oct.account1 + newState.month.oct.account2;
+    newState.month.oct.account1 = newState.month.sep.account1 + (newState.month.oct.total_emp * ratioAcc1);
+    newState.month.oct.account2 = newState.month.sep.account2 + (newState.month.oct.total_emp * ratioAcc2);
+    newState.month.oct.account3 = newState.month.sep.account3 + (newState.month.oct.total_emp * ratioAcc3);
+    newState.month.oct.total = newState.month.oct.account1 + newState.month.oct.account2 + newState.month.oct.account3;
 
     newState.month.nov.total_emp = newState.month.nov.employee + newState.month.nov.employer;
-    newState.month.nov.account1 = newState.month.oct.account1 + (newState.month.nov.total_emp * ratio);
-    newState.month.nov.account2 = newState.month.oct.account2 + (newState.month.nov.total_emp * (1-ratio));
-    newState.month.nov.total = newState.month.nov.account1 + newState.month.nov.account2;
+    newState.month.nov.account1 = newState.month.oct.account1 + (newState.month.nov.total_emp * ratioAcc1);
+    newState.month.nov.account2 = newState.month.oct.account2 + (newState.month.nov.total_emp * ratioAcc2);
+    newState.month.nov.account3 = newState.month.oct.account3 + (newState.month.nov.total_emp * ratioAcc3);
+    newState.month.nov.total = newState.month.nov.account1 + newState.month.nov.account2 + newState.month.nov.account3;
 
     newState.month.dec.total_emp = newState.month.dec.employee + newState.month.dec.employer;
-    newState.month.dec.account1 = newState.month.nov.account1 + (newState.month.dec.total_emp * ratio);
-    newState.month.dec.account2 = newState.month.nov.account2 + (newState.month.dec.total_emp * (1-ratio));
-    newState.month.dec.total = newState.month.dec.account1 + newState.month.dec.account2;
+    newState.month.dec.account1 = newState.month.nov.account1 + (newState.month.dec.total_emp * ratioAcc1);
+    newState.month.dec.account2 = newState.month.nov.account2 + (newState.month.dec.total_emp * ratioAcc2);
+    newState.month.dec.account3 = newState.month.nov.account3 + (newState.month.dec.total_emp * ratioAcc3);
+    newState.month.dec.total = newState.month.dec.account1 + newState.month.dec.account2 + newState.month.dec.account3;
 
     
     
@@ -645,37 +714,51 @@ function App() {
     = RM1,137.50 x 6.40% x (335) ÷ 365
     = RM66.82
     */
-   const div_acc1_jan = newState.month.jan.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-   const div_acc1_feb = newState.month.feb.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-   const div_acc1_mar = newState.month.mar.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-   const div_acc1_apr = newState.month.apr.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-   const div_acc1_may = newState.month.may.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-   const div_acc1_jun = newState.month.jun.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-   const div_acc1_jul = newState.month.jul.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-   const div_acc1_aug = newState.month.aug.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-   const div_acc1_sep = newState.month.sep.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-   const div_acc1_oct = newState.month.oct.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-   const div_acc1_nov = newState.month.nov.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-   const div_acc1_dec = newState.month.dec.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+   const div_acc1_jan = newState.month.jan.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
+   const div_acc1_feb = newState.month.feb.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
+   const div_acc1_mar = newState.month.mar.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
+   const div_acc1_apr = newState.month.apr.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
+   const div_acc1_may = newState.month.may.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
+   const div_acc1_jun = newState.month.jun.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
+   const div_acc1_jul = newState.month.jul.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
+   const div_acc1_aug = newState.month.aug.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
+   const div_acc1_sep = newState.month.sep.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
+   const div_acc1_oct = newState.month.oct.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
+   const div_acc1_nov = newState.month.nov.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
+   const div_acc1_dec = newState.month.dec.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
    console.log(div_acc1_jan);                         //482.15999999999997
-   console.log(newState.month.jan.total_emp * ratio); //8540
+   console.log(newState.month.jan.total_emp * ratioAcc1); //8540
    console.log(newState.dividend_interest / 100);     //0.061500000000000006
    console.log(getEPFDays(newState.year, "jan"));     //336
    console.log(getTotalDaysInYear(newState.year));    //366
 
     // dividen account2 monthly
-    const div_acc2_jan = newState.month.jan.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-    const div_acc2_feb = newState.month.feb.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-    const div_acc2_mar = newState.month.mar.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-    const div_acc2_apr = newState.month.apr.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-    const div_acc2_may = newState.month.may.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-    const div_acc2_jun = newState.month.jun.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-    const div_acc2_jul = newState.month.jul.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-    const div_acc2_aug = newState.month.aug.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-    const div_acc2_sep = newState.month.sep.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-    const div_acc2_oct = newState.month.oct.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-    const div_acc2_nov = newState.month.nov.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-    const div_acc2_dec = newState.month.dec.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+    const div_acc2_jan = newState.month.jan.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
+    const div_acc2_feb = newState.month.feb.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
+    const div_acc2_mar = newState.month.mar.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
+    const div_acc2_apr = newState.month.apr.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
+    const div_acc2_may = newState.month.may.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
+    const div_acc2_jun = newState.month.jun.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
+    const div_acc2_jul = newState.month.jul.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
+    const div_acc2_aug = newState.month.aug.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
+    const div_acc2_sep = newState.month.sep.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
+    const div_acc2_oct = newState.month.oct.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
+    const div_acc2_nov = newState.month.nov.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
+    const div_acc2_dec = newState.month.dec.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+
+    // dividen account3 monthly
+    const div_acc3_jan = newState.month.jan.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
+    const div_acc3_feb = newState.month.feb.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
+    const div_acc3_mar = newState.month.mar.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
+    const div_acc3_apr = newState.month.apr.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
+    const div_acc3_may = newState.month.may.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
+    const div_acc3_jun = newState.month.jun.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
+    const div_acc3_jul = newState.month.jul.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
+    const div_acc3_aug = newState.month.aug.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
+    const div_acc3_sep = newState.month.sep.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
+    const div_acc3_oct = newState.month.oct.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
+    const div_acc3_nov = newState.month.nov.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
+    const div_acc3_dec = newState.month.dec.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
 
     // dividen account1
     const dividend_acc1 = newState.open_acc1 * newState.dividend_interest / 100;
@@ -691,13 +774,21 @@ function App() {
                              div_acc2_sep + div_acc2_oct + div_acc2_nov + div_acc2_dec +
                              dividend_acc2;
 
+    // dividen account3
+    const dividend_acc3 = newState.open_acc3 * newState.dividend_interest / 100;
+    newState.dividend_acc3 = div_acc3_jan + div_acc3_feb + div_acc3_mar + div_acc3_apr +
+                             div_acc3_may + div_acc3_jun + div_acc3_jul + div_acc3_aug +
+                             div_acc3_sep + div_acc3_oct + div_acc3_nov + div_acc3_dec +
+                             dividend_acc3;
+
     // dividen total
-    newState.dividend_total = newState.dividend_acc1 + newState.dividend_acc2;
+    newState.dividend_total = newState.dividend_acc1 + newState.dividend_acc2 + newState.dividend_acc3;
 
     // balance end
     newState.balance_acc1 = newState.month.dec.account1 + newState.dividend_acc1;
     newState.balance_acc2 = newState.month.dec.account2 + newState.dividend_acc2;
-    newState.balance_total = newState.balance_acc1 + newState.balance_acc2;
+    newState.balance_acc3 = newState.month.dec.account3 + newState.dividend_acc3;
+    newState.balance_total = newState.balance_acc1 + newState.balance_acc2 + newState.balance_acc3;
 
    
 
@@ -728,7 +819,8 @@ function App() {
 
       newState.open_acc1 = newRow.account1;
       newState.open_acc2 = newRow.account2;
-      newState.total =  newRow.account1 + newRow.account2;
+      newState.open_acc3 = newRow.account3;
+      newState.total =  newRow.account1 + newRow.account2 + newRow.account3;
 
     } else {
     // https://stackoverflow.com/questions/40562647/what-is-the-most-efficient-way-to-copy-some-properties-from-an-object-in-javascr
@@ -778,66 +870,79 @@ function App() {
     // total_emp
     // account 1
     // account 2
+    // account 3
     // total
     newState.month.jan.total_emp = newState.month.jan.employee + newState.month.jan.employer;
-    newState.month.jan.account1 = newState.open_acc1 + (newState.month.jan.total_emp * ratio);
-    newState.month.jan.account2 = newState.open_acc2 + (newState.month.jan.total_emp * (1-ratio));
-    newState.month.jan.total = newState.month.jan.account1 + newState.month.jan.account2;
+    newState.month.jan.account1 = newState.open_acc1 + (newState.month.jan.total_emp * ratioAcc1);
+    newState.month.jan.account2 = newState.open_acc2 + (newState.month.jan.total_emp * ratioAcc2);
+    newState.month.jan.account3 = newState.open_acc3 + (newState.month.jan.total_emp * ratioAcc3);
+    newState.month.jan.total = newState.month.jan.account1 + newState.month.jan.account2 + newState.month.jan.account3;
 
     newState.month.feb.total_emp = newState.month.feb.employee + newState.month.feb.employer;
-    newState.month.feb.account1 = newState.month.jan.account1 + (newState.month.feb.total_emp * ratio);
-    newState.month.feb.account2 = newState.month.jan.account2 + (newState.month.feb.total_emp * (1-ratio));
-    newState.month.feb.total = newState.month.feb.account1 + newState.month.feb.account2;
+    newState.month.feb.account1 = newState.month.jan.account1 + (newState.month.feb.total_emp * ratioAcc1);
+    newState.month.feb.account2 = newState.month.jan.account2 + (newState.month.feb.total_emp * ratioAcc2);
+    newState.month.feb.account3 = newState.month.jan.account3 + (newState.month.feb.total_emp * ratioAcc3);
+    newState.month.feb.total = newState.month.feb.account1 + newState.month.feb.account2 + newState.month.feb.account3;
 
     newState.month.mar.total_emp = newState.month.mar.employee + newState.month.mar.employer;
-    newState.month.mar.account1 = newState.month.feb.account1 + (newState.month.mar.total_emp * ratio);
-    newState.month.mar.account2 = newState.month.feb.account2 + (newState.month.mar.total_emp * (1-ratio));
-    newState.month.mar.total = newState.month.mar.account1 + newState.month.mar.account2;
+    newState.month.mar.account1 = newState.month.feb.account1 + (newState.month.mar.total_emp * ratioAcc1);
+    newState.month.mar.account2 = newState.month.feb.account2 + (newState.month.mar.total_emp * ratioAcc2);
+    newState.month.mar.account3 = newState.month.feb.account3 + (newState.month.mar.total_emp * ratioAcc3);
+    newState.month.mar.total = newState.month.mar.account1 + newState.month.mar.account2 + newState.month.mar.account3;
 
     newState.month.apr.total_emp = newState.month.apr.employee + newState.month.apr.employer;
-    newState.month.apr.account1 = newState.month.mar.account1 + (newState.month.apr.total_emp * ratio);
-    newState.month.apr.account2 = newState.month.mar.account2 + (newState.month.apr.total_emp * (1-ratio));
-    newState.month.apr.total = newState.month.apr.account1 + newState.month.apr.account2;
+    newState.month.apr.account1 = newState.month.mar.account1 + (newState.month.apr.total_emp * ratioAcc1);
+    newState.month.apr.account2 = newState.month.mar.account2 + (newState.month.apr.total_emp * ratioAcc2);
+    newState.month.apr.account3 = newState.month.mar.account3 + (newState.month.apr.total_emp * ratioAcc3);
+    newState.month.apr.total = newState.month.apr.account1 + newState.month.apr.account2 + newState.month.apr.account3;
     
     newState.month.may.total_emp = newState.month.may.employee + newState.month.may.employer;
-    newState.month.may.account1 = newState.month.apr.account1 + (newState.month.may.total_emp * ratio);
-    newState.month.may.account2 = newState.month.apr.account2 + (newState.month.may.total_emp * (1-ratio));
-    newState.month.may.total = newState.month.may.account1 + newState.month.may.account2;
+    newState.month.may.account1 = newState.month.apr.account1 + (newState.month.may.total_emp * ratioAcc1);
+    newState.month.may.account2 = newState.month.apr.account2 + (newState.month.may.total_emp * ratioAcc2);
+    newState.month.may.account3 = newState.month.apr.account3 + (newState.month.may.total_emp * ratioAcc3);
+    newState.month.may.total = newState.month.may.account1 + newState.month.may.account2 + newState.month.may.account3;
 
     newState.month.jun.total_emp = newState.month.jun.employee + newState.month.jun.employer;
-    newState.month.jun.account1 = newState.month.may.account1 + (newState.month.jun.total_emp * ratio);
-    newState.month.jun.account2 = newState.month.may.account2 + (newState.month.jun.total_emp * (1-ratio));
-    newState.month.jun.total = newState.month.jun.account1 + newState.month.jun.account2;
+    newState.month.jun.account1 = newState.month.may.account1 + (newState.month.jun.total_emp * ratioAcc1);
+    newState.month.jun.account2 = newState.month.may.account2 + (newState.month.jun.total_emp * ratioAcc2);
+    newState.month.jun.account3 = newState.month.may.account3 + (newState.month.jun.total_emp * ratioAcc3);
+    newState.month.jun.total = newState.month.jun.account1 + newState.month.jun.account2 + newState.month.jun.account3;
 
     newState.month.jul.total_emp = newState.month.jul.employee + newState.month.jul.employer;
-    newState.month.jul.account1 = newState.month.jun.account1 + (newState.month.jul.total_emp * ratio);
-    newState.month.jul.account2 = newState.month.jun.account2 + (newState.month.jul.total_emp * (1-ratio));
-    newState.month.jul.total = newState.month.jul.account1 + newState.month.jul.account2;
+    newState.month.jul.account1 = newState.month.jun.account1 + (newState.month.jul.total_emp * ratioAcc1);
+    newState.month.jul.account2 = newState.month.jun.account2 + (newState.month.jul.total_emp * ratioAcc2);
+    newState.month.jul.account3 = newState.month.jun.account3 + (newState.month.jul.total_emp * ratioAcc3);
+    newState.month.jul.total = newState.month.jul.account1 + newState.month.jul.account2 + newState.month.jul.account3;
 
     newState.month.aug.total_emp = newState.month.aug.employee + newState.month.aug.employer;
-    newState.month.aug.account1 = newState.month.jul.account1 + (newState.month.aug.total_emp * ratio);
-    newState.month.aug.account2 = newState.month.jul.account2 + (newState.month.aug.total_emp * (1-ratio));
-    newState.month.aug.total = newState.month.aug.account1 + newState.month.aug.account2;
+    newState.month.aug.account1 = newState.month.jul.account1 + (newState.month.aug.total_emp * ratioAcc1);
+    newState.month.aug.account2 = newState.month.jul.account2 + (newState.month.aug.total_emp * ratioAcc2);
+    newState.month.aug.account3 = newState.month.jul.account3 + (newState.month.aug.total_emp * ratioAcc3);
+    newState.month.aug.total = newState.month.aug.account1 + newState.month.aug.account2 + newState.month.aug.account3;
 
     newState.month.sep.total_emp = newState.month.sep.employee + newState.month.sep.employer;
-    newState.month.sep.account1 = newState.month.aug.account1 + (newState.month.sep.total_emp * ratio);
-    newState.month.sep.account2 = newState.month.aug.account2 + (newState.month.sep.total_emp * (1-ratio));
-    newState.month.sep.total = newState.month.sep.account1 + newState.month.sep.account2;
+    newState.month.sep.account1 = newState.month.aug.account1 + (newState.month.sep.total_emp * ratioAcc1);
+    newState.month.sep.account2 = newState.month.aug.account2 + (newState.month.sep.total_emp * ratioAcc2);
+    newState.month.sep.account3 = newState.month.aug.account3 + (newState.month.sep.total_emp * ratioAcc3);
+    newState.month.sep.total = newState.month.sep.account1 + newState.month.sep.account2 + newState.month.sep.account3;
 
     newState.month.oct.total_emp = newState.month.oct.employee + newState.month.oct.employer;
-    newState.month.oct.account1 = newState.month.sep.account1 + (newState.month.oct.total_emp * ratio);
-    newState.month.oct.account2 = newState.month.sep.account2 + (newState.month.oct.total_emp * (1-ratio));
-    newState.month.oct.total = newState.month.oct.account1 + newState.month.oct.account2;
+    newState.month.oct.account1 = newState.month.sep.account1 + (newState.month.oct.total_emp * ratioAcc1);
+    newState.month.oct.account2 = newState.month.sep.account2 + (newState.month.oct.total_emp * ratioAcc2);
+    newState.month.oct.account3 = newState.month.sep.account3 + (newState.month.oct.total_emp * ratioAcc3);
+    newState.month.oct.total = newState.month.oct.account1 + newState.month.oct.account2 + newState.month.oct.account3;
 
     newState.month.nov.total_emp = newState.month.nov.employee + newState.month.nov.employer;
-    newState.month.nov.account1 = newState.month.oct.account1 + (newState.month.nov.total_emp * ratio);
-    newState.month.nov.account2 = newState.month.oct.account2 + (newState.month.nov.total_emp * (1-ratio));
-    newState.month.nov.total = newState.month.nov.account1 + newState.month.nov.account2;
+    newState.month.nov.account1 = newState.month.oct.account1 + (newState.month.nov.total_emp * ratioAcc1);
+    newState.month.nov.account2 = newState.month.oct.account2 + (newState.month.nov.total_emp * ratioAcc2);
+    newState.month.nov.account3 = newState.month.oct.account3 + (newState.month.nov.total_emp * ratioAcc3);
+    newState.month.nov.total = newState.month.nov.account1 + newState.month.nov.account2 + newState.month.nov.account3;
 
     newState.month.dec.total_emp = newState.month.dec.employee + newState.month.dec.employer;
-    newState.month.dec.account1 = newState.month.nov.account1 + (newState.month.dec.total_emp * ratio);
-    newState.month.dec.account2 = newState.month.nov.account2 + (newState.month.dec.total_emp * (1-ratio));
-    newState.month.dec.total = newState.month.dec.account1 + newState.month.dec.account2;
+    newState.month.dec.account1 = newState.month.nov.account1 + (newState.month.dec.total_emp * ratioAcc1);
+    newState.month.dec.account2 = newState.month.nov.account2 + (newState.month.dec.total_emp * ratioAcc2);
+    newState.month.dec.account3 = newState.month.nov.account3 + (newState.month.dec.total_emp * ratioAcc3);
+    newState.month.dec.total = newState.month.dec.account1 + newState.month.dec.account2 + newState.month.dec.account3;
 
     
     
@@ -850,37 +955,51 @@ function App() {
     = RM1,137.50 x 6.40% x (335) ÷ 365
     = RM66.82
     */
-   const div_acc1_jan = newState.month.jan.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-   const div_acc1_feb = newState.month.feb.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-   const div_acc1_mar = newState.month.mar.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-   const div_acc1_apr = newState.month.apr.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-   const div_acc1_may = newState.month.may.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-   const div_acc1_jun = newState.month.jun.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-   const div_acc1_jul = newState.month.jul.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-   const div_acc1_aug = newState.month.aug.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-   const div_acc1_sep = newState.month.sep.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-   const div_acc1_oct = newState.month.oct.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-   const div_acc1_nov = newState.month.nov.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-   const div_acc1_dec = newState.month.dec.total_emp * ratio * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+   const div_acc1_jan = newState.month.jan.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
+   const div_acc1_feb = newState.month.feb.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
+   const div_acc1_mar = newState.month.mar.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
+   const div_acc1_apr = newState.month.apr.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
+   const div_acc1_may = newState.month.may.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
+   const div_acc1_jun = newState.month.jun.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
+   const div_acc1_jul = newState.month.jul.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
+   const div_acc1_aug = newState.month.aug.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
+   const div_acc1_sep = newState.month.sep.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
+   const div_acc1_oct = newState.month.oct.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
+   const div_acc1_nov = newState.month.nov.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
+   const div_acc1_dec = newState.month.dec.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
    console.log(div_acc1_jan);                         //482.15999999999997
-   console.log(newState.month.jan.total_emp * ratio); //8540
+   console.log(newState.month.jan.total_emp * ratioAcc1); //8540
    console.log(newState.dividend_interest / 100);     //0.061500000000000006
    console.log(getEPFDays(newState.year, "jan"));     //336
    console.log(getTotalDaysInYear(newState.year));    //366
 
     // dividen account2 monthly
-    const div_acc2_jan = newState.month.jan.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-    const div_acc2_feb = newState.month.feb.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-    const div_acc2_mar = newState.month.mar.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-    const div_acc2_apr = newState.month.apr.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-    const div_acc2_may = newState.month.may.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-    const div_acc2_jun = newState.month.jun.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-    const div_acc2_jul = newState.month.jul.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-    const div_acc2_aug = newState.month.aug.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-    const div_acc2_sep = newState.month.sep.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-    const div_acc2_oct = newState.month.oct.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-    const div_acc2_nov = newState.month.nov.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-    const div_acc2_dec = newState.month.dec.total_emp * (1-ratio) * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+    const div_acc2_jan = newState.month.jan.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
+    const div_acc2_feb = newState.month.feb.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
+    const div_acc2_mar = newState.month.mar.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
+    const div_acc2_apr = newState.month.apr.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
+    const div_acc2_may = newState.month.may.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
+    const div_acc2_jun = newState.month.jun.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
+    const div_acc2_jul = newState.month.jul.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
+    const div_acc2_aug = newState.month.aug.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
+    const div_acc2_sep = newState.month.sep.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
+    const div_acc2_oct = newState.month.oct.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
+    const div_acc2_nov = newState.month.nov.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
+    const div_acc2_dec = newState.month.dec.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+
+    // dividen account3 monthly
+    const div_acc3_jan = newState.month.jan.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
+    const div_acc3_feb = newState.month.feb.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
+    const div_acc3_mar = newState.month.mar.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
+    const div_acc3_apr = newState.month.apr.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
+    const div_acc3_may = newState.month.may.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
+    const div_acc3_jun = newState.month.jun.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
+    const div_acc3_jul = newState.month.jul.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
+    const div_acc3_aug = newState.month.aug.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
+    const div_acc3_sep = newState.month.sep.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
+    const div_acc3_oct = newState.month.oct.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
+    const div_acc3_nov = newState.month.nov.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
+    const div_acc3_dec = newState.month.dec.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
 
     // dividen account1
     const dividend_acc1 = newState.open_acc1 * newState.dividend_interest / 100;
@@ -896,13 +1015,24 @@ function App() {
                              div_acc2_sep + div_acc2_oct + div_acc2_nov + div_acc2_dec +
                              dividend_acc2;
 
+    const dividend_acc3 = newState.open_acc3 * newState.dividend_interest / 100;
+    newState.dividend_acc3 = div_acc3_jan + div_acc3_feb + div_acc3_mar + div_acc3_apr +
+                             div_acc3_may + div_acc3_jun + div_acc3_jul + div_acc3_aug +
+                             div_acc3_sep + div_acc3_oct + div_acc3_nov + div_acc3_dec +
+                             dividend_acc3;
+
+    console.log("newState.dividend_acc1", newState.dividend_acc1)
+    //console.log("", )
+    //console.log("", )
+
     // dividen total
-    newState.dividend_total = newState.dividend_acc1 + newState.dividend_acc2;
+    newState.dividend_total = newState.dividend_acc1 + newState.dividend_acc2 + newState.dividend_acc3;
 
     // balance end
     newState.balance_acc1 = newState.month.dec.account1 + newState.dividend_acc1;
     newState.balance_acc2 = newState.month.dec.account2 + newState.dividend_acc2;
-    newState.balance_total = newState.balance_acc1 + newState.balance_acc2;
+    newState.balance_acc3 = newState.month.dec.account3 + newState.dividend_acc3;
+    newState.balance_total = newState.balance_acc1 + newState.balance_acc2 + newState.balance_acc3;
 
    
 
