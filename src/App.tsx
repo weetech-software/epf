@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import clsx from "clsx";
 //import Button from '@mui/material/Button';
 //import FormGroup from '@mui/material/FormGroup';
 //import FormControlLabel from '@mui/material/FormControlLabel';
@@ -18,13 +17,7 @@ import {
   GridColumnGroupingModel,
   DataGridProps,
   GridCellParams,
-  GridRenderEditCellParams,
-  GridValueSetterParams,
-  GridCellEditStopParams,
-  MuiEvent
 } from "@mui/x-data-grid";
-import { alignProperty } from "@mui/material/styles/cssUtils";
-import { RampRight } from "@mui/icons-material";
 
 
 type EPF = {
@@ -509,7 +502,7 @@ function App() {
       flex: 1,
       editable: true,
       cellClassName: (params: GridCellParams<Row>) => {
-        if (params.id == "Opening Balance") {
+        if (params.id === "Opening Balance") {
           return "super-app-theme--cell";
         }
 
@@ -525,7 +518,7 @@ function App() {
       flex: 1,
       editable: true,
       cellClassName: (params: GridCellParams<Row>) => {
-        if (params.id == "Opening Balance") {
+        if (params.id === "Opening Balance") {
           return "super-app-theme--cell";
         }
 
@@ -541,7 +534,7 @@ function App() {
       flex: 1,
       editable: true,
       cellClassName: (params: GridCellParams<Row>) => {
-        if (params.id == "Opening Balance") {
+        if (params.id === "Opening Balance") {
           return "super-app-theme--cell";
         }
 
@@ -815,7 +808,7 @@ function App() {
 
     const newState = {...state};
 
-    if (newRow.id == 'Opening Balance') {
+    if (newRow.id === 'Opening Balance') {
 
       newState.open_acc1 = newRow.account1;
       newState.open_acc2 = newRow.account2;
@@ -1183,7 +1176,7 @@ function App() {
   }
 
   const getTotalDaysInYear = (year : number) : number => {
-    return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
+    return ((year % 4 === 0 && year % 100 > 0) || year %400 === 0) ? 366 : 365;
   }
 
 
@@ -1250,9 +1243,9 @@ function App() {
                       density="compact"
                       showColumnVerticalBorder
                       isCellEditable={(params) => 
-                          params.row.id == "Opening Balance" ||
-                          params.field == "employer" ||
-                          params.field == "employee"
+                          params.row.id === "Opening Balance" ||
+                          params.field === "employer" ||
+                          params.field === "employee"
                       }
                       processRowUpdate = {processRowUpdate}
                       onProcessRowUpdateError = {(error) => console.log(error)}
