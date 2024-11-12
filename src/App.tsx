@@ -41,9 +41,6 @@ const filter = createFilterOptions<IDividenHistory>();
 
 
 type EPF = {
-  // year: number,
-  // dividend_interest: number,
-  // inputValue?: number,
   dividenHistory: IDividenHistory,
 
   open_acc1: number,
@@ -84,9 +81,6 @@ function App() {
   const ratioAcc3 = 0.10;
 
   const initialState : EPF = {
-    // year: new Date().getFullYear() - 1, //year: 2012,
-    // dividend_interest: 5.50,
-    // inputValue: -1,
     dividenHistory: {
       year: new Date().getFullYear() - 1, //year: 2012,
       dividend_interest: 5.50,
@@ -99,8 +93,8 @@ function App() {
       return this.open_acc1 + this.open_acc2 + this.open_acc3;
     },
     month: {
-      jan : { employer : 1100, employee : 1200, 
-              //get total_emp() {  return this.employer + this.employee}, 
+      jan : { employer : 1100, employee : 1200,
+              //get total_emp() {  return this.employer + this.employee},
               //set total_emp(v: number) {this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.open_acc1 + this.total_emp * ratio},
@@ -115,7 +109,7 @@ function App() {
               total: 102300,
             },
       feb : { employer : 1100, employee : 1200,
-              //get total_emp() { return this.employer + this.employee}, 
+              //get total_emp() { return this.employer + this.employee},
               //set total_emp(v) { this.total_emp = v},
               total_emp : 2300,
               //get account1() { return initialState.month.jan.account1 + this.total_emp * ratio},
@@ -288,7 +282,7 @@ function App() {
       //total: state.month.feb.total,
       //account1: state.open_acc1 + (state.month.feb.employer + state.month.feb.employee) * ratio,
       //account2: state.open_acc2 + (state.month.feb.employer + state.month.feb.employee) * (1-ratio),
-      //total: (state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratio) + 
+      //total: (state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratio) +
              //(state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * (1-ratio)),
       account1: state.month.feb.account1,
       account2: state.month.feb.account2,
@@ -674,7 +668,7 @@ function App() {
     newState.month.apr.account2 = newState.month.mar.account2 + (newState.month.apr.total_emp * ratioAcc2);
     newState.month.apr.account3 = newState.month.mar.account3 + (newState.month.apr.total_emp * ratioAcc3);
     newState.month.apr.total = newState.month.apr.account1 + newState.month.apr.account2 + newState.month.apr.account3;
-    
+
     newState.month.may.total_emp = newState.month.may.employee + newState.month.may.employer;
     newState.month.may.account1 = newState.month.apr.account1 + (newState.month.may.total_emp * ratioAcc1);
     newState.month.may.account2 = newState.month.apr.account2 + (newState.month.may.total_emp * ratioAcc2);
@@ -723,8 +717,8 @@ function App() {
     newState.month.dec.account3 = newState.month.nov.account3 + (newState.month.dec.total_emp * ratioAcc3);
     newState.month.dec.total = newState.month.dec.account1 + newState.month.dec.account2 + newState.month.dec.account3;
 
-    
-    
+
+
     // https://www.imoney.my/articles/what-does-the-6-40-epf-dividend-mean-to-your-savings
     // dividen account1 monthly
     /*
@@ -810,7 +804,7 @@ function App() {
     newState.balance_acc3 = newState.month.dec.account3 + newState.dividend_acc3;
     newState.balance_total = newState.balance_acc1 + newState.balance_acc2 + newState.balance_acc3;
 
-   
+
 
     setState(newState);
 
@@ -847,7 +841,7 @@ function App() {
     const { id, month, ...new1Row} = newRow;
 
     switch (newRow.id) {
-      case 'Jan':    
+      case 'Jan':
         // https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
         newState.month.jan = new1Row;
         break;
@@ -915,7 +909,7 @@ function App() {
     newState.month.apr.account2 = newState.month.mar.account2 + (newState.month.apr.total_emp * ratioAcc2);
     newState.month.apr.account3 = newState.month.mar.account3 + (newState.month.apr.total_emp * ratioAcc3);
     newState.month.apr.total = newState.month.apr.account1 + newState.month.apr.account2 + newState.month.apr.account3;
-    
+
     newState.month.may.total_emp = newState.month.may.employee + newState.month.may.employer;
     newState.month.may.account1 = newState.month.apr.account1 + (newState.month.may.total_emp * ratioAcc1);
     newState.month.may.account2 = newState.month.apr.account2 + (newState.month.may.total_emp * ratioAcc2);
@@ -964,8 +958,8 @@ function App() {
     newState.month.dec.account3 = newState.month.nov.account3 + (newState.month.dec.total_emp * ratioAcc3);
     newState.month.dec.total = newState.month.dec.account1 + newState.month.dec.account2 + newState.month.dec.account3;
 
-    
-    
+
+
     // https://www.imoney.my/articles/what-does-the-6-40-epf-dividend-mean-to-your-savings
     // dividen account1 monthly
     /*
@@ -1054,14 +1048,14 @@ function App() {
     newState.balance_acc3 = newState.month.dec.account3 + newState.dividend_acc3;
     newState.balance_total = newState.balance_acc1 + newState.balance_acc2 + newState.balance_acc3;
 
-   
+
 
     setState(newState);
     console.log(state);
 
     return newRow;
   }
-  
+
   // https://stackoverflow.com/questions/1184334/get-number-days-in-a-specified-month-using-javascript
   const daysInMonth = (year : number, month : string) : number => {
     let num : number = 0;
@@ -1101,7 +1095,7 @@ function App() {
         break;
       case "dec":
         num = 12;
-        break;        
+        break;
     }
     return new Date(year, num, 0).getDate();
   }
@@ -1144,7 +1138,7 @@ function App() {
         break;
       case "dec":
         num = 12;
-        break;        
+        break;
     }
     return num;
   }
@@ -1187,14 +1181,14 @@ function App() {
         break;
       case 12:
         month = "dec";
-        break;        
+        break;
     }
     return month;
   }
 
   // (Total number of days in the year – Number of accumulated days for the month + 1)
   const getEPFDays = (year : number, month : string) : number => {
-    
+
     let days : number = 0;
     for (let i = 1; i <= getMonthInNum(month); i++) {
       days += daysInMonth(year, getNumInMonth(i));
@@ -1233,14 +1227,14 @@ function App() {
                     onChange={(event, newValue: string | IDividenHistory | null) => {
 
                       if (typeof newValue === 'string') {
-                        setState({...state, 
+                        setState({...state,
                                   dividenHistory: {
                                    ...state.dividenHistory,
                                    year: +newValue,
                                   }
                         });
                       } else if (typeof newValue === 'object') {
-                        setState({...state, 
+                        setState({...state,
                                   dividenHistory: {
                                    ...state.dividenHistory,
                                    year: +newValue!.year,
@@ -1248,30 +1242,9 @@ function App() {
                                   }
                         });
                       }
-                      /*
-                      if (typeof newValue?.year === 'number') {
-                        setState({...state, 
-                                  dividenHistory: {
-                                   ...state.dividenHistory,
-                                   year: newValue.year
-                                  }
-                        
-                        });
-                      } else if (newValue && newValue.inputValue) {
-                        // Create a new value from the user input
-                        setState({...state, 
-                                  dividenHistory: {
-                                   ...state.dividenHistory,
-                                    year: newValue.inputValue
-                                  }
-                        });
-                      } else {
-                        setState({...state, year: newValue});
-                      }
-                      */
                     }}
                     filterOptions={(options, params) => {
-                      
+
                       const filtered = filter(options as IDividenHistory[], params);
 
                       const { inputValue } = params;
@@ -1288,7 +1261,7 @@ function App() {
                         });
                       }
                       return filtered;
-                      
+
                     }}
                     getOptionLabel={(option: string | IDividenHistory) => typeof option === 'string' ? option : `${option.year}`}
                     options={dividenHistories}
@@ -1336,7 +1309,7 @@ function App() {
                       getCellClassName={getCellClassName}
                       density="compact"
                       showColumnVerticalBorder
-                      isCellEditable={(params) => 
+                      isCellEditable={(params) =>
                           params.row.id === "Opening Balance" ||
                           params.field === "employer" ||
                           params.field === "employee"
