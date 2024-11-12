@@ -28,6 +28,7 @@ interface IDividenHistory {
 }
 
 const dividenHistories: readonly IDividenHistory[] = [
+  { year: 2024, dividend_interest: 5.75 },
   { year: 2023, dividend_interest: 5.50 },
   { year: 2022, dividend_interest: 5.35 },
   { year: 2021, dividend_interest: 6.10 },
