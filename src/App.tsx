@@ -10,6 +10,7 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 //import FormControlLabel from '@mui/material/FormControlLabel';
 //import Checkbox from '@mui/material/Checkbox';
 import TextField from "@mui/material/TextField";
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import {
   DataGrid,
   GridColDef,
@@ -20,9 +21,30 @@ import {
 } from "@mui/x-data-grid";
 
 
+interface IDividenHistory {
+  year: number;
+  dividend_interest: number;
+  inputValue?: number;
+}
+
+const dividenHistories: readonly IDividenHistory[] = [
+  { year: 2023, dividend_interest: 5.50 },
+  { year: 2022, dividend_interest: 5.35 },
+  { year: 2021, dividend_interest: 6.10 },
+  { year: 2020, dividend_interest: 5.20 },
+  { year: 2019, dividend_interest: 5.45 },
+  { year: 2018, dividend_interest: 6.15 },
+  { year: 2017, dividend_interest: 6.90 },
+];
+
+const filter = createFilterOptions<IDividenHistory>();
+
+
 type EPF = {
-  year: number,
-  dividend_interest: number,
+  // year: number,
+  // dividend_interest: number,
+  // inputValue?: number,
+  dividenHistory: IDividenHistory,
 
   open_acc1: number,
   open_acc2: number,
@@ -62,9 +84,14 @@ function App() {
   const ratioAcc3 = 0.10;
 
   const initialState : EPF = {
-    year: new Date().getFullYear() - 1,
-    //year: 2012,
-    dividend_interest: 5.50,
+    // year: new Date().getFullYear() - 1, //year: 2012,
+    // dividend_interest: 5.50,
+    // inputValue: -1,
+    dividenHistory: {
+      year: new Date().getFullYear() - 1, //year: 2012,
+      dividend_interest: 5.50,
+      inputValue: -1,
+    },
     open_acc1: 75000,
     open_acc2: 15000,
     open_acc3: 10000,
@@ -423,7 +450,7 @@ function App() {
     ...rows1,
     {
       id: "Dividend Received for Year",
-      label: "Dividend Received for Year " + state.year,
+      label: "Dividend Received for Year " + state.dividenHistory.year,
       account1: state.dividend_acc1,
       account2: state.dividend_acc2,
       account3: state.dividend_acc3,
@@ -431,7 +458,7 @@ function App() {
     },
     {
       id: "Balance as of 31st Dec",
-      label: "Balance as of 31st Dec " + state.year,
+      label: "Balance as of 31st Dec " + state.dividenHistory.year,
       account1: state.balance_acc1,
       account2: state.balance_acc2,
       account3: state.balance_acc3,
@@ -707,68 +734,68 @@ function App() {
     = RM1,137.50 x 6.40% x (335) ÷ 365
     = RM66.82
     */
-   const div_acc1_jan = newState.month.jan.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-   const div_acc1_feb = newState.month.feb.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-   const div_acc1_mar = newState.month.mar.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-   const div_acc1_apr = newState.month.apr.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-   const div_acc1_may = newState.month.may.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-   const div_acc1_jun = newState.month.jun.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-   const div_acc1_jul = newState.month.jul.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-   const div_acc1_aug = newState.month.aug.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-   const div_acc1_sep = newState.month.sep.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-   const div_acc1_oct = newState.month.oct.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-   const div_acc1_nov = newState.month.nov.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-   const div_acc1_dec = newState.month.dec.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+   const div_acc1_jan = newState.month.jan.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jan") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_feb = newState.month.feb.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "feb") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_mar = newState.month.mar.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "mar") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_apr = newState.month.apr.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "apr") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_may = newState.month.may.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "may") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_jun = newState.month.jun.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jun") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_jul = newState.month.jul.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jul") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_aug = newState.month.aug.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "aug") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_sep = newState.month.sep.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "sep") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_oct = newState.month.oct.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "oct") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_nov = newState.month.nov.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "nov") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_dec = newState.month.dec.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "dec") / getTotalDaysInYear(newState.dividenHistory.year);
    console.log(div_acc1_jan);                         //482.15999999999997
    console.log(newState.month.jan.total_emp * ratioAcc1); //8540
-   console.log(newState.dividend_interest / 100);     //0.061500000000000006
-   console.log(getEPFDays(newState.year, "jan"));     //336
-   console.log(getTotalDaysInYear(newState.year));    //366
+   console.log(newState.dividenHistory.dividend_interest / 100);     //0.061500000000000006
+   console.log(getEPFDays(newState.dividenHistory.year, "jan"));     //336
+   console.log(getTotalDaysInYear(newState.dividenHistory.year));    //366
 
     // dividen account2 monthly
-    const div_acc2_jan = newState.month.jan.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-    const div_acc2_feb = newState.month.feb.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-    const div_acc2_mar = newState.month.mar.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-    const div_acc2_apr = newState.month.apr.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-    const div_acc2_may = newState.month.may.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-    const div_acc2_jun = newState.month.jun.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-    const div_acc2_jul = newState.month.jul.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-    const div_acc2_aug = newState.month.aug.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-    const div_acc2_sep = newState.month.sep.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-    const div_acc2_oct = newState.month.oct.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-    const div_acc2_nov = newState.month.nov.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-    const div_acc2_dec = newState.month.dec.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+    const div_acc2_jan = newState.month.jan.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jan") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_feb = newState.month.feb.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "feb") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_mar = newState.month.mar.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "mar") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_apr = newState.month.apr.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "apr") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_may = newState.month.may.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "may") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_jun = newState.month.jun.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jun") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_jul = newState.month.jul.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jul") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_aug = newState.month.aug.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "aug") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_sep = newState.month.sep.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "sep") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_oct = newState.month.oct.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "oct") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_nov = newState.month.nov.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "nov") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_dec = newState.month.dec.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "dec") / getTotalDaysInYear(newState.dividenHistory.year);
 
     // dividen account3 monthly
-    const div_acc3_jan = newState.month.jan.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-    const div_acc3_feb = newState.month.feb.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-    const div_acc3_mar = newState.month.mar.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-    const div_acc3_apr = newState.month.apr.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-    const div_acc3_may = newState.month.may.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-    const div_acc3_jun = newState.month.jun.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-    const div_acc3_jul = newState.month.jul.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-    const div_acc3_aug = newState.month.aug.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-    const div_acc3_sep = newState.month.sep.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-    const div_acc3_oct = newState.month.oct.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-    const div_acc3_nov = newState.month.nov.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-    const div_acc3_dec = newState.month.dec.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+    const div_acc3_jan = newState.month.jan.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jan") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_feb = newState.month.feb.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "feb") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_mar = newState.month.mar.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "mar") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_apr = newState.month.apr.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "apr") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_may = newState.month.may.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "may") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_jun = newState.month.jun.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jun") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_jul = newState.month.jul.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jul") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_aug = newState.month.aug.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "aug") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_sep = newState.month.sep.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "sep") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_oct = newState.month.oct.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "oct") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_nov = newState.month.nov.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "nov") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_dec = newState.month.dec.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "dec") / getTotalDaysInYear(newState.dividenHistory.year);
 
     // dividen account1
-    const dividend_acc1 = newState.open_acc1 * newState.dividend_interest / 100;
+    const dividend_acc1 = newState.open_acc1 * newState.dividenHistory.dividend_interest / 100;
     newState.dividend_acc1 = div_acc1_jan + div_acc1_feb + div_acc1_mar + div_acc1_apr +
                              div_acc1_may + div_acc1_jun + div_acc1_jul + div_acc1_aug +
                              div_acc1_sep + div_acc1_oct + div_acc1_nov + div_acc1_dec +
                              dividend_acc1;
 
     // dividen account2
-    const dividend_acc2 = newState.open_acc2 * newState.dividend_interest / 100;
+    const dividend_acc2 = newState.open_acc2 * newState.dividenHistory.dividend_interest / 100;
     newState.dividend_acc2 = div_acc2_jan + div_acc2_feb + div_acc2_mar + div_acc2_apr +
                              div_acc2_may + div_acc2_jun + div_acc2_jul + div_acc2_aug +
                              div_acc2_sep + div_acc2_oct + div_acc2_nov + div_acc2_dec +
                              dividend_acc2;
 
     // dividen account3
-    const dividend_acc3 = newState.open_acc3 * newState.dividend_interest / 100;
+    const dividend_acc3 = newState.open_acc3 * newState.dividenHistory.dividend_interest / 100;
     newState.dividend_acc3 = div_acc3_jan + div_acc3_feb + div_acc3_mar + div_acc3_apr +
                              div_acc3_may + div_acc3_jun + div_acc3_jul + div_acc3_aug +
                              div_acc3_sep + div_acc3_oct + div_acc3_nov + div_acc3_dec +
@@ -948,67 +975,67 @@ function App() {
     = RM1,137.50 x 6.40% x (335) ÷ 365
     = RM66.82
     */
-   const div_acc1_jan = newState.month.jan.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-   const div_acc1_feb = newState.month.feb.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-   const div_acc1_mar = newState.month.mar.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-   const div_acc1_apr = newState.month.apr.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-   const div_acc1_may = newState.month.may.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-   const div_acc1_jun = newState.month.jun.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-   const div_acc1_jul = newState.month.jul.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-   const div_acc1_aug = newState.month.aug.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-   const div_acc1_sep = newState.month.sep.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-   const div_acc1_oct = newState.month.oct.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-   const div_acc1_nov = newState.month.nov.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-   const div_acc1_dec = newState.month.dec.total_emp * ratioAcc1 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+   const div_acc1_jan = newState.month.jan.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jan") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_feb = newState.month.feb.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "feb") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_mar = newState.month.mar.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "mar") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_apr = newState.month.apr.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "apr") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_may = newState.month.may.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "may") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_jun = newState.month.jun.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jun") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_jul = newState.month.jul.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jul") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_aug = newState.month.aug.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "aug") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_sep = newState.month.sep.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "sep") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_oct = newState.month.oct.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "oct") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_nov = newState.month.nov.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "nov") / getTotalDaysInYear(newState.dividenHistory.year);
+   const div_acc1_dec = newState.month.dec.total_emp * ratioAcc1 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "dec") / getTotalDaysInYear(newState.dividenHistory.year);
    console.log(div_acc1_jan);                         //482.15999999999997
    console.log(newState.month.jan.total_emp * ratioAcc1); //8540
-   console.log(newState.dividend_interest / 100);     //0.061500000000000006
-   console.log(getEPFDays(newState.year, "jan"));     //336
-   console.log(getTotalDaysInYear(newState.year));    //366
+   console.log(newState.dividenHistory.dividend_interest / 100);     //0.061500000000000006
+   console.log(getEPFDays(newState.dividenHistory.year, "jan"));     //336
+   console.log(getTotalDaysInYear(newState.dividenHistory.year));    //366
 
     // dividen account2 monthly
-    const div_acc2_jan = newState.month.jan.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-    const div_acc2_feb = newState.month.feb.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-    const div_acc2_mar = newState.month.mar.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-    const div_acc2_apr = newState.month.apr.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-    const div_acc2_may = newState.month.may.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-    const div_acc2_jun = newState.month.jun.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-    const div_acc2_jul = newState.month.jul.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-    const div_acc2_aug = newState.month.aug.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-    const div_acc2_sep = newState.month.sep.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-    const div_acc2_oct = newState.month.oct.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-    const div_acc2_nov = newState.month.nov.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-    const div_acc2_dec = newState.month.dec.total_emp * ratioAcc2 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+    const div_acc2_jan = newState.month.jan.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jan") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_feb = newState.month.feb.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "feb") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_mar = newState.month.mar.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "mar") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_apr = newState.month.apr.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "apr") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_may = newState.month.may.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "may") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_jun = newState.month.jun.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jun") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_jul = newState.month.jul.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jul") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_aug = newState.month.aug.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "aug") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_sep = newState.month.sep.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "sep") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_oct = newState.month.oct.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "oct") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_nov = newState.month.nov.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "nov") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc2_dec = newState.month.dec.total_emp * ratioAcc2 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "dec") / getTotalDaysInYear(newState.dividenHistory.year);
 
     // dividen account3 monthly
-    const div_acc3_jan = newState.month.jan.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jan") / getTotalDaysInYear(newState.year);
-    const div_acc3_feb = newState.month.feb.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "feb") / getTotalDaysInYear(newState.year);
-    const div_acc3_mar = newState.month.mar.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "mar") / getTotalDaysInYear(newState.year);
-    const div_acc3_apr = newState.month.apr.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "apr") / getTotalDaysInYear(newState.year);
-    const div_acc3_may = newState.month.may.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "may") / getTotalDaysInYear(newState.year);
-    const div_acc3_jun = newState.month.jun.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jun") / getTotalDaysInYear(newState.year);
-    const div_acc3_jul = newState.month.jul.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "jul") / getTotalDaysInYear(newState.year);
-    const div_acc3_aug = newState.month.aug.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "aug") / getTotalDaysInYear(newState.year);
-    const div_acc3_sep = newState.month.sep.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "sep") / getTotalDaysInYear(newState.year);
-    const div_acc3_oct = newState.month.oct.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "oct") / getTotalDaysInYear(newState.year);
-    const div_acc3_nov = newState.month.nov.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "nov") / getTotalDaysInYear(newState.year);
-    const div_acc3_dec = newState.month.dec.total_emp * ratioAcc3 * (newState.dividend_interest / 100) * getEPFDays(newState.year, "dec") / getTotalDaysInYear(newState.year);
+    const div_acc3_jan = newState.month.jan.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jan") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_feb = newState.month.feb.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "feb") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_mar = newState.month.mar.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "mar") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_apr = newState.month.apr.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "apr") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_may = newState.month.may.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "may") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_jun = newState.month.jun.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jun") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_jul = newState.month.jul.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "jul") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_aug = newState.month.aug.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "aug") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_sep = newState.month.sep.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "sep") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_oct = newState.month.oct.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "oct") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_nov = newState.month.nov.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "nov") / getTotalDaysInYear(newState.dividenHistory.year);
+    const div_acc3_dec = newState.month.dec.total_emp * ratioAcc3 * (newState.dividenHistory.dividend_interest / 100) * getEPFDays(newState.dividenHistory.year, "dec") / getTotalDaysInYear(newState.dividenHistory.year);
 
     // dividen account1
-    const dividend_acc1 = newState.open_acc1 * newState.dividend_interest / 100;
+    const dividend_acc1 = newState.open_acc1 * newState.dividenHistory.dividend_interest / 100;
     newState.dividend_acc1 = div_acc1_jan + div_acc1_feb + div_acc1_mar + div_acc1_apr +
                              div_acc1_may + div_acc1_jun + div_acc1_jul + div_acc1_aug +
                              div_acc1_sep + div_acc1_oct + div_acc1_nov + div_acc1_dec +
                              dividend_acc1;
 
     // dividen account2
-    const dividend_acc2 = newState.open_acc2 * newState.dividend_interest / 100;
+    const dividend_acc2 = newState.open_acc2 * newState.dividenHistory.dividend_interest / 100;
     newState.dividend_acc2 = div_acc2_jan + div_acc2_feb + div_acc2_mar + div_acc2_apr +
                              div_acc2_may + div_acc2_jun + div_acc2_jul + div_acc2_aug +
                              div_acc2_sep + div_acc2_oct + div_acc2_nov + div_acc2_dec +
                              dividend_acc2;
 
-    const dividend_acc3 = newState.open_acc3 * newState.dividend_interest / 100;
+    const dividend_acc3 = newState.open_acc3 * newState.dividenHistory.dividend_interest / 100;
     newState.dividend_acc3 = div_acc3_jan + div_acc3_feb + div_acc3_mar + div_acc3_apr +
                              div_acc3_may + div_acc3_jun + div_acc3_jul + div_acc3_aug +
                              div_acc3_sep + div_acc3_oct + div_acc3_nov + div_acc3_dec +
@@ -1200,21 +1227,88 @@ function App() {
                   xs={12}
                   sx={{ display: "flex", justifyContent: "center" }}
                 >
-                  <TextField
-                    sx={{ marginRight: 1 }}
-                    label="Year"
-                    variant="outlined"
-                    value={state.year}
-                    onChange={(ev: React.ChangeEvent<HTMLInputElement>) => setState({...state, year: parseInt(ev.currentTarget.value)})}
+                  <Autocomplete
+                    value={state.dividenHistory}
+                    sx={{ width: 300,  marginRight: 1 }}
+                    onChange={(event, newValue: string | IDividenHistory | null) => {
+
+                      if (typeof newValue === 'string') {
+                        setState({...state, 
+                                  dividenHistory: {
+                                   ...state.dividenHistory,
+                                   year: +newValue,
+                                  }
+                        });
+                      } else if (typeof newValue === 'object') {
+                        setState({...state, 
+                                  dividenHistory: {
+                                   ...state.dividenHistory,
+                                   year: +newValue!.year,
+                                   dividend_interest: +newValue!.dividend_interest,
+                                  }
+                        });
+                      }
+                      /*
+                      if (typeof newValue?.year === 'number') {
+                        setState({...state, 
+                                  dividenHistory: {
+                                   ...state.dividenHistory,
+                                   year: newValue.year
+                                  }
+                        
+                        });
+                      } else if (newValue && newValue.inputValue) {
+                        // Create a new value from the user input
+                        setState({...state, 
+                                  dividenHistory: {
+                                   ...state.dividenHistory,
+                                    year: newValue.inputValue
+                                  }
+                        });
+                      } else {
+                        setState({...state, year: newValue});
+                      }
+                      */
+                    }}
+                    filterOptions={(options, params) => {
+                      
+                      const filtered = filter(options as IDividenHistory[], params);
+
+                      const { inputValue } = params;
+                      // Suggest the creation of a new value
+                      const isExisting = options.some((option) =>
+                        typeof option !== 'string' && +inputValue === option.year
+                      );
+
+                      if (inputValue !== '' && !isExisting) {
+                        filtered.push({
+                          inputValue: +inputValue,
+                          year: +inputValue,
+                          dividend_interest: 0, // custom year input , just set dividend_interest to 0
+                        });
+                      }
+                      return filtered;
+                      
+                    }}
+                    getOptionLabel={(option: string | IDividenHistory) => typeof option === 'string' ? option : `${option.year}`}
+                    options={dividenHistories}
+                    renderInput={(params) => <TextField {...params} label="Year" />}
+                    freeSolo
                     onBlur={() => recalculate()}
                   />
                   <TextField
-                    type="number"
                     sx={{ marginLeft: 1 }}
-                    label="Dividend"
-                    variant="filled"
-                    value={state.dividend_interest}
-                    onChange={(ev: React.ChangeEvent<HTMLInputElement>) => setState({...state, dividend_interest: +ev.currentTarget.value})}
+                    type="number"
+                    InputLabelProps={{ shrink: true }}
+                    label="dividen"
+                    variant="outlined"
+                    value={state.dividenHistory.dividend_interest ? state.dividenHistory.dividend_interest : 0}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setState({...state, dividenHistory: {
+                          ...state.dividenHistory,
+                          dividend_interest: +event.target.value
+                          } });
+                    }}
                     onBlur={() => recalculate()}
                   />
                 </Grid>
