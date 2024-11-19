@@ -258,6 +258,15 @@ function App() {
 
   const [state, setState] = React.useState(initialState);
 
+  /* track when any of the state.month changed, then recalculate */
+  React.useEffect(() => {
+
+    if (state.month) {
+      recalculate()
+    }
+
+  }, [state.month])
+
   const rows1: GridRowsProp = [
     {
       id: "Jan",
@@ -442,6 +451,7 @@ function App() {
       account3: state.open_acc3,
       total: state.total,
     },
+    { id: "Action Row", label: "", month: "", employer: null, employee: null },
     ...rows1,
     {
       id: "Dividend Received for Year",
@@ -494,9 +504,25 @@ function App() {
       type: "number",
       editable: true,
       width: 120,
-      cellClassName: "super-app-theme--cell",
+      cellClassName: (params: GridCellParams<Row>) => {
+        // Exclude 'Action Row' from applying the class
+        if (params.row.id === "Action Row") {
+          return "";
+        }
+        return "super-app-theme--cell";
+      },
       flex: 1,
       sortable: false,
+      renderCell: (params) => {
+        if (params.row.id === "Action Row") {
+          return (
+            <button onClick={replicateEmployer} title="replicate on employer month to remaining months">
+              Employer
+            </button>
+          );
+        }
+        return params.value;
+      },
     },
     {
       field: "employee",
@@ -504,9 +530,25 @@ function App() {
       type: "number",
       editable: true,
       width: 120,
-      cellClassName: "super-app-theme--cell",
+      cellClassName: (params: GridCellParams<Row>) => {
+        // Exclude 'Action Row' from applying the class
+        if (params.row.id === "Action Row") {
+          return "";
+        }
+        return "super-app-theme--cell";
+      },
       flex: 1,
       sortable: false,
+      renderCell: (params) => {
+        if (params.row.id === "Action Row") {
+          return (
+            <button onClick={replicateEmployee} title="replicate on employee month to remaining months">
+              Employee
+            </button>
+          );
+        }
+        return params.value;
+      },
     },
     {
       field: "total_emp",
@@ -598,29 +640,6 @@ function App() {
     },
   ];
 
-  /*    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-
-    <div>
-      <Button variant="contained">Hello World</Button>
-    </div>
-
-     */
-
   const getCellClassName: DataGridProps["getCellClassName"] = ({
     row,
     field,
@@ -636,6 +655,52 @@ function App() {
     }
     return "";
   };
+
+  const replicateEmployer = () => {
+    const currentAmount = state.month.jan.employer;
+
+    setState({
+      ...state,
+      month : {
+        ...state.month,
+        feb: { ...state.month.feb, employer: currentAmount },
+        mar: { ...state.month.feb, employer: currentAmount },
+        apr: { ...state.month.feb, employer: currentAmount },
+        may: { ...state.month.feb, employer: currentAmount },
+        jun: { ...state.month.feb, employer: currentAmount },
+        jul: { ...state.month.feb, employer: currentAmount },
+        aug: { ...state.month.feb, employer: currentAmount },
+        sep: { ...state.month.feb, employer: currentAmount },
+        oct: { ...state.month.feb, employer: currentAmount },
+        nov: { ...state.month.feb, employer: currentAmount },
+        dec: { ...state.month.feb, employer: currentAmount },
+      }
+    });
+
+  }
+
+  const replicateEmployee = () => {
+    const currentAmount = state.month.jan.employee;
+
+    setState({
+      ...state,
+      month : {
+        ...state.month,
+        feb: { ...state.month.feb, employee: currentAmount },
+        mar: { ...state.month.feb, employee: currentAmount },
+        apr: { ...state.month.feb, employee: currentAmount },
+        may: { ...state.month.feb, employee: currentAmount },
+        jun: { ...state.month.feb, employee: currentAmount },
+        jul: { ...state.month.feb, employee: currentAmount },
+        aug: { ...state.month.feb, employee: currentAmount },
+        sep: { ...state.month.feb, employee: currentAmount },
+        oct: { ...state.month.feb, employee: currentAmount },
+        nov: { ...state.month.feb, employee: currentAmount },
+        dec: { ...state.month.feb, employee: currentAmount },
+      }
+    });
+
+  }
 
   const recalculate = () => {
 
@@ -1311,9 +1376,10 @@ function App() {
                       density="compact"
                       showColumnVerticalBorder
                       isCellEditable={(params) =>
-                          params.row.id === "Opening Balance" ||
+                          (params.row.id === "Opening Balance" ||
                           params.field === "employer" ||
-                          params.field === "employee"
+                          params.field === "employee") &&
+                          params.row.id !== "Action Row"
                       }
                       processRowUpdate = {processRowUpdate}
                       onProcessRowUpdateError = {(error) => console.log(error)}
