@@ -265,6 +265,7 @@ function App() {
       recalculate()
     }
 
+  // eslint-disable-next-line
   }, [state.month])
 
   const rows1: GridRowsProp = [
