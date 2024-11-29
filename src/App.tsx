@@ -995,7 +995,7 @@ function App() {
 
     }
 
-    const isAcc3Change = oldRow.account3 != newRow.account3
+    const isAcc3Change = oldRow.account3 !== newRow.account3
     const changeMonth = isAcc3Change ? newRow.month : -1
 
     // total_emp
