@@ -1,14 +1,10 @@
 import * as React from "react";
-//import logo from './logo.svg';
+
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-//import Button from '@mui/material/Button';
-//import FormGroup from '@mui/material/FormGroup';
-//import FormControlLabel from '@mui/material/FormControlLabel';
-//import Checkbox from '@mui/material/Checkbox';
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import {
@@ -47,6 +43,7 @@ type EPF = {
   open_acc1: number,
   open_acc2: number,
   open_acc3: number,
+  empty_acc3: boolean,
   total: number,
 
   month: {
@@ -79,7 +76,7 @@ function App() {
 
   const ratioAcc1 = 0.75;
   const ratioAcc2 = 0.15;
-  const ratioAcc3 = 0.10;
+  let ratioAcc3 = 0.10;
 
   const initialState : EPF = {
     dividenHistory: {
@@ -90,6 +87,7 @@ function App() {
     open_acc1: 75000,
     open_acc2: 15000,
     open_acc3: 10000,
+    empty_acc3: false,
     get total () {
       return this.open_acc1 + this.open_acc2 + this.open_acc3;
     },
@@ -275,9 +273,12 @@ function App() {
       employer: state.month.jan.employer,
       employee: state.month.jan.employee,
       total_emp: state.month.jan.employer + state.month.jan.employee,
-      account1: state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc1,
-      account2: state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc2,
-      account3: state.open_acc3 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc3,
+      //account1: state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc1,
+      account1: state.month.jan.account1,
+      //account2: state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc2,
+      account2: state.month.jan.account2,
+      // account3: state.open_acc3 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc3,
+      account3: state.month.jan.account3,
       total: (state.open_acc1 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc1) +
              (state.open_acc2 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc2) +
              (state.open_acc3 + (state.month.jan.employer + state.month.jan.employee) * ratioAcc3),
@@ -517,7 +518,7 @@ function App() {
       renderCell: (params) => {
         if (params.row.id === "Action Row") {
           return (
-            <button onClick={replicateEmployer} title="replicate on employer month to remaining months">
+            <button onClick={replicateEmployer} title="replicate on employer month January to remaining months">
               Employer
             </button>
           );
@@ -543,7 +544,7 @@ function App() {
       renderCell: (params) => {
         if (params.row.id === "Action Row") {
           return (
-            <button onClick={replicateEmployee} title="replicate on employee month to remaining months">
+            <button onClick={replicateEmployee} title="replicate on employee month January to remaining months">
               Employee
             </button>
           );
@@ -605,6 +606,16 @@ function App() {
 
         return "";
       },
+      renderCell: (params) => {
+        if (params.row.id === "Action Row") {
+          return (
+            <button onClick={emptyAcc3} title="make all empty">
+              Empty
+            </button>
+          );
+        }
+        return params.value;
+      },
       sortable: false,
     },
     {
@@ -658,6 +669,7 @@ function App() {
   };
 
   const replicateEmployer = () => {
+
     const currentAmount = state.month.jan.employer;
 
     setState({
@@ -665,22 +677,23 @@ function App() {
       month : {
         ...state.month,
         feb: { ...state.month.feb, employer: currentAmount },
-        mar: { ...state.month.feb, employer: currentAmount },
-        apr: { ...state.month.feb, employer: currentAmount },
-        may: { ...state.month.feb, employer: currentAmount },
-        jun: { ...state.month.feb, employer: currentAmount },
-        jul: { ...state.month.feb, employer: currentAmount },
-        aug: { ...state.month.feb, employer: currentAmount },
-        sep: { ...state.month.feb, employer: currentAmount },
-        oct: { ...state.month.feb, employer: currentAmount },
-        nov: { ...state.month.feb, employer: currentAmount },
-        dec: { ...state.month.feb, employer: currentAmount },
+        mar: { ...state.month.mar, employer: currentAmount },
+        apr: { ...state.month.apr, employer: currentAmount },
+        may: { ...state.month.may, employer: currentAmount },
+        jun: { ...state.month.jun, employer: currentAmount },
+        jul: { ...state.month.jul, employer: currentAmount },
+        aug: { ...state.month.aug, employer: currentAmount },
+        sep: { ...state.month.sep, employer: currentAmount },
+        oct: { ...state.month.oct, employer: currentAmount },
+        nov: { ...state.month.nov, employer: currentAmount },
+        dec: { ...state.month.dec, employer: currentAmount },
       }
     });
 
   }
 
   const replicateEmployee = () => {
+
     const currentAmount = state.month.jan.employee;
 
     setState({
@@ -688,16 +701,41 @@ function App() {
       month : {
         ...state.month,
         feb: { ...state.month.feb, employee: currentAmount },
-        mar: { ...state.month.feb, employee: currentAmount },
-        apr: { ...state.month.feb, employee: currentAmount },
-        may: { ...state.month.feb, employee: currentAmount },
-        jun: { ...state.month.feb, employee: currentAmount },
-        jul: { ...state.month.feb, employee: currentAmount },
-        aug: { ...state.month.feb, employee: currentAmount },
-        sep: { ...state.month.feb, employee: currentAmount },
-        oct: { ...state.month.feb, employee: currentAmount },
-        nov: { ...state.month.feb, employee: currentAmount },
-        dec: { ...state.month.feb, employee: currentAmount },
+        mar: { ...state.month.mar, employee: currentAmount },
+        apr: { ...state.month.apr, employee: currentAmount },
+        may: { ...state.month.may, employee: currentAmount },
+        jun: { ...state.month.jun, employee: currentAmount },
+        jul: { ...state.month.jul, employee: currentAmount },
+        aug: { ...state.month.aug, employee: currentAmount },
+        sep: { ...state.month.sep, employee: currentAmount },
+        oct: { ...state.month.oct, employee: currentAmount },
+        nov: { ...state.month.nov, employee: currentAmount },
+        dec: { ...state.month.dec, employee: currentAmount },
+      }
+    });
+
+  }
+
+  const emptyAcc3 = () => {
+
+      setState({
+      ...state,
+      open_acc3: 0,
+      empty_acc3: true,
+      month : {
+        ...state.month,
+        jan: { ...state.month.jan, account3: 0 },
+        feb: { ...state.month.feb, account3: 0 },
+        mar: { ...state.month.mar, account3: 0 },
+        apr: { ...state.month.apr, account3: 0 },
+        may: { ...state.month.may, account3: 0 },
+        jun: { ...state.month.jun, account3: 0 },
+        jul: { ...state.month.jul, account3: 0 },
+        aug: { ...state.month.aug, account3: 0 },
+        sep: { ...state.month.sep, account3: 0 },
+        oct: { ...state.month.oct, account3: 0 },
+        nov: { ...state.month.nov, account3: 0 },
+        dec: { ...state.month.dec, account3: 0 },
       }
     });
 
@@ -706,6 +744,10 @@ function App() {
   const recalculate = () => {
 
     const newState = {...state};
+
+    if (newState.empty_acc3) {
+      ratioAcc3 = 0
+    }
 
     // total_emp
     // account 1
@@ -893,6 +935,9 @@ function App() {
     // new : {"id":"Feb","month":"Feb","employer":11000,"employee":1200,"total_emp":2300,"account1":73220,"account2":31380,"total":104600}
     // old : {"id":"Feb","month":"Feb","employer":11001,"employee":1200,"total_emp":2300,"account1":73220,"account2":31380,"total":104600}
 
+    // new : {"id":"Jan","month":"Jan","employer":1100,"employee":1200,"total_emp":2300,"account1":76725,"account2":15345,"account3":0,"total":102300}
+    // old : {"id":"Jan","month":"Jan","employer":1100,"employee":1200,"total_emp":2300,"account1":76725,"account2":15345,"account3":10230,"total":102300}
+
 
     const newState = {...state};
 
@@ -904,125 +949,131 @@ function App() {
       newState.total =  newRow.account1 + newRow.account2 + newRow.account3;
 
     } else {
-    // https://stackoverflow.com/questions/40562647/what-is-the-most-efficient-way-to-copy-some-properties-from-an-object-in-javascr
-    const { id, month, ...new1Row} = newRow;
+      // {"id":"Jan","month":"Jan","employer":1100,"employee":1200,"total_emp":2300,"account1":76725,"account2":15345,"account3":0,"total":102300}
+      // https://stackoverflow.com/questions/40562647/what-is-the-most-efficient-way-to-copy-some-properties-from-an-object-in-javascr
+      const { id, month, ...new1Row} = newRow;
 
-    switch (newRow.id) {
-      case 'Jan':
-        // https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
-        newState.month.jan = new1Row;
-        break;
-      case 'Feb':
-        newState.month.feb = new1Row;
-        break;
-      case 'Mar':
-        newState.month.mar = new1Row;
-        break;
-      case 'Apr':
-        newState.month.apr = new1Row;
-        break;
-      case 'May':
-        newState.month.may = new1Row;
-        break;
-      case 'Jun':
-        newState.month.jun = new1Row;
-        break;
-      case 'Jul':
-        newState.month.jul = new1Row;
-        break;
-      case 'Aug':
-        newState.month.aug = new1Row;
-        break;
-      case 'Sep':
-        newState.month.sep = new1Row;
-        break;
-      case 'Oct':
-        newState.month.oct = new1Row;
-        break;
-      case 'Nov':
-        newState.month.nov = new1Row;
-        break;
-      case 'Dec':
-        newState.month.dec = new1Row;
-        break;
+      switch (newRow.id) {
+        case 'Jan':
+          // https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
+          newState.month.jan = {...new1Row}
+          break;
+        case 'Feb':
+          newState.month.feb = {...new1Row};
+          break;
+        case 'Mar':
+          newState.month.mar = {...new1Row};
+          break;
+        case 'Apr':
+          newState.month.apr = {...new1Row};
+          break;
+        case 'May':
+          newState.month.may = {...new1Row};
+          break;
+        case 'Jun':
+          newState.month.jun = {...new1Row};
+          break;
+        case 'Jul':
+          newState.month.jul = {...new1Row};
+          break;
+        case 'Aug':
+          newState.month.aug = {...new1Row};
+          break;
+        case 'Sep':
+          newState.month.sep = {...new1Row};
+          break;
+        case 'Oct':
+          newState.month.oct = {...new1Row};
+          break;
+        case 'Nov':
+          newState.month.nov = {...new1Row};
+          break;
+        case 'Dec':
+          newState.month.dec = {...new1Row};
+          break;
+      }
+
     }
-    }
+
+    const isAcc3Change = oldRow.account3 != newRow.account3
+    const changeMonth = isAcc3Change ? newRow.month : -1
 
     // total_emp
     // account 1
     // account 2
     // account 3
     // total
+
     newState.month.jan.total_emp = newState.month.jan.employee + newState.month.jan.employer;
     newState.month.jan.account1 = newState.open_acc1 + (newState.month.jan.total_emp * ratioAcc1);
     newState.month.jan.account2 = newState.open_acc2 + (newState.month.jan.total_emp * ratioAcc2);
-    newState.month.jan.account3 = newState.open_acc3 + (newState.month.jan.total_emp * ratioAcc3);
+    newState.month.jan.account3 = changeMonth === "Jan" && isAcc3Change ? newRow.account3 : newState.open_acc3 + (newState.month.jan.total_emp * ratioAcc3);
     newState.month.jan.total = newState.month.jan.account1 + newState.month.jan.account2 + newState.month.jan.account3;
 
     newState.month.feb.total_emp = newState.month.feb.employee + newState.month.feb.employer;
     newState.month.feb.account1 = newState.month.jan.account1 + (newState.month.feb.total_emp * ratioAcc1);
     newState.month.feb.account2 = newState.month.jan.account2 + (newState.month.feb.total_emp * ratioAcc2);
-    newState.month.feb.account3 = newState.month.jan.account3 + (newState.month.feb.total_emp * ratioAcc3);
+    newState.month.feb.account3 = changeMonth === "Feb" && isAcc3Change ? newRow.account3 : newState.month.jan.account3 + (newState.month.feb.total_emp * ratioAcc3);
     newState.month.feb.total = newState.month.feb.account1 + newState.month.feb.account2 + newState.month.feb.account3;
 
     newState.month.mar.total_emp = newState.month.mar.employee + newState.month.mar.employer;
     newState.month.mar.account1 = newState.month.feb.account1 + (newState.month.mar.total_emp * ratioAcc1);
     newState.month.mar.account2 = newState.month.feb.account2 + (newState.month.mar.total_emp * ratioAcc2);
-    newState.month.mar.account3 = newState.month.feb.account3 + (newState.month.mar.total_emp * ratioAcc3);
+    newState.month.mar.account3 = changeMonth === "Mar" && isAcc3Change ? newRow.account3 : newState.month.feb.account3 + (newState.month.mar.total_emp * ratioAcc3);
     newState.month.mar.total = newState.month.mar.account1 + newState.month.mar.account2 + newState.month.mar.account3;
 
     newState.month.apr.total_emp = newState.month.apr.employee + newState.month.apr.employer;
     newState.month.apr.account1 = newState.month.mar.account1 + (newState.month.apr.total_emp * ratioAcc1);
     newState.month.apr.account2 = newState.month.mar.account2 + (newState.month.apr.total_emp * ratioAcc2);
-    newState.month.apr.account3 = newState.month.mar.account3 + (newState.month.apr.total_emp * ratioAcc3);
+    newState.month.apr.account3 = changeMonth === "Apr" && isAcc3Change ? newRow.account3 : newState.month.mar.account3 + (newState.month.apr.total_emp * ratioAcc3);
     newState.month.apr.total = newState.month.apr.account1 + newState.month.apr.account2 + newState.month.apr.account3;
 
     newState.month.may.total_emp = newState.month.may.employee + newState.month.may.employer;
     newState.month.may.account1 = newState.month.apr.account1 + (newState.month.may.total_emp * ratioAcc1);
     newState.month.may.account2 = newState.month.apr.account2 + (newState.month.may.total_emp * ratioAcc2);
-    newState.month.may.account3 = newState.month.apr.account3 + (newState.month.may.total_emp * ratioAcc3);
+    newState.month.may.account3 = changeMonth === "May" && isAcc3Change ? newRow.account3 : newState.month.apr.account3 + (newState.month.may.total_emp * ratioAcc3);
     newState.month.may.total = newState.month.may.account1 + newState.month.may.account2 + newState.month.may.account3;
 
     newState.month.jun.total_emp = newState.month.jun.employee + newState.month.jun.employer;
     newState.month.jun.account1 = newState.month.may.account1 + (newState.month.jun.total_emp * ratioAcc1);
     newState.month.jun.account2 = newState.month.may.account2 + (newState.month.jun.total_emp * ratioAcc2);
-    newState.month.jun.account3 = newState.month.may.account3 + (newState.month.jun.total_emp * ratioAcc3);
+    newState.month.jun.account3 = changeMonth === "Jun" && isAcc3Change ? newRow.account3 : newState.month.may.account3 + (newState.month.jun.total_emp * ratioAcc3);
     newState.month.jun.total = newState.month.jun.account1 + newState.month.jun.account2 + newState.month.jun.account3;
 
     newState.month.jul.total_emp = newState.month.jul.employee + newState.month.jul.employer;
     newState.month.jul.account1 = newState.month.jun.account1 + (newState.month.jul.total_emp * ratioAcc1);
     newState.month.jul.account2 = newState.month.jun.account2 + (newState.month.jul.total_emp * ratioAcc2);
-    newState.month.jul.account3 = newState.month.jun.account3 + (newState.month.jul.total_emp * ratioAcc3);
+    newState.month.jul.account3 = changeMonth === "Jul" && isAcc3Change ? newRow.account3 : newState.month.jun.account3 + (newState.month.jul.total_emp * ratioAcc3);
     newState.month.jul.total = newState.month.jul.account1 + newState.month.jul.account2 + newState.month.jul.account3;
 
     newState.month.aug.total_emp = newState.month.aug.employee + newState.month.aug.employer;
     newState.month.aug.account1 = newState.month.jul.account1 + (newState.month.aug.total_emp * ratioAcc1);
     newState.month.aug.account2 = newState.month.jul.account2 + (newState.month.aug.total_emp * ratioAcc2);
-    newState.month.aug.account3 = newState.month.jul.account3 + (newState.month.aug.total_emp * ratioAcc3);
+    newState.month.aug.account3 = changeMonth === "Aug" && isAcc3Change ? newRow.account3 : newState.month.jul.account3 + (newState.month.aug.total_emp * ratioAcc3);
     newState.month.aug.total = newState.month.aug.account1 + newState.month.aug.account2 + newState.month.aug.account3;
 
     newState.month.sep.total_emp = newState.month.sep.employee + newState.month.sep.employer;
     newState.month.sep.account1 = newState.month.aug.account1 + (newState.month.sep.total_emp * ratioAcc1);
     newState.month.sep.account2 = newState.month.aug.account2 + (newState.month.sep.total_emp * ratioAcc2);
-    newState.month.sep.account3 = newState.month.aug.account3 + (newState.month.sep.total_emp * ratioAcc3);
+    newState.month.sep.account3 = changeMonth === "Sep" && isAcc3Change ? newRow.account3 : newState.month.aug.account3 + (newState.month.sep.total_emp * ratioAcc3);
     newState.month.sep.total = newState.month.sep.account1 + newState.month.sep.account2 + newState.month.sep.account3;
 
     newState.month.oct.total_emp = newState.month.oct.employee + newState.month.oct.employer;
     newState.month.oct.account1 = newState.month.sep.account1 + (newState.month.oct.total_emp * ratioAcc1);
     newState.month.oct.account2 = newState.month.sep.account2 + (newState.month.oct.total_emp * ratioAcc2);
-    newState.month.oct.account3 = newState.month.sep.account3 + (newState.month.oct.total_emp * ratioAcc3);
+    newState.month.oct.account3 = changeMonth === "Oct" && isAcc3Change ? newRow.account3 : newState.month.sep.account3 + (newState.month.oct.total_emp * ratioAcc3);
     newState.month.oct.total = newState.month.oct.account1 + newState.month.oct.account2 + newState.month.oct.account3;
 
     newState.month.nov.total_emp = newState.month.nov.employee + newState.month.nov.employer;
     newState.month.nov.account1 = newState.month.oct.account1 + (newState.month.nov.total_emp * ratioAcc1);
     newState.month.nov.account2 = newState.month.oct.account2 + (newState.month.nov.total_emp * ratioAcc2);
-    newState.month.nov.account3 = newState.month.oct.account3 + (newState.month.nov.total_emp * ratioAcc3);
+    newState.month.nov.account3 = changeMonth === "Nov" && isAcc3Change ? newRow.account3 : newState.month.oct.account3 + (newState.month.nov.total_emp * ratioAcc3);
     newState.month.nov.total = newState.month.nov.account1 + newState.month.nov.account2 + newState.month.nov.account3;
 
     newState.month.dec.total_emp = newState.month.dec.employee + newState.month.dec.employer;
     newState.month.dec.account1 = newState.month.nov.account1 + (newState.month.dec.total_emp * ratioAcc1);
     newState.month.dec.account2 = newState.month.nov.account2 + (newState.month.dec.total_emp * ratioAcc2);
-    newState.month.dec.account3 = newState.month.nov.account3 + (newState.month.dec.total_emp * ratioAcc3);
+    newState.month.dec.account3 = changeMonth === "Dec" && isAcc3Change ? newRow.account3 : newState.month.nov.account3 + (newState.month.dec.total_emp * ratioAcc3);
     newState.month.dec.total = newState.month.dec.account1 + newState.month.dec.account2 + newState.month.dec.account3;
 
 
@@ -1379,7 +1430,8 @@ function App() {
                       isCellEditable={(params) =>
                           (params.row.id === "Opening Balance" ||
                           params.field === "employer" ||
-                          params.field === "employee") &&
+                          params.field === "employee" ||
+                          params.field === "account3") &&
                           params.row.id !== "Action Row"
                       }
                       processRowUpdate = {processRowUpdate}
