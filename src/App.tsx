@@ -614,6 +614,12 @@ function App() {
             </button>
           );
         }
+        if (params.row.id === "Dividend Received for Year" || params.row.id === "Balance as of 31st Dec") {
+            return new Intl.NumberFormat('en-US', {
+              minimumFractionDigits: 2,
+             maximumFractionDigits: 2,
+         }).format(params.value);
+        }
         return params.value;
       },
       sortable: false,
@@ -641,7 +647,7 @@ function App() {
     },
     {
       groupId: "Account Details",
-      description: "auto pop",
+      description: "auto populate for account1 and account2",
       headerAlign: "center",
       children: [
         { field: "account1" },
