@@ -81,7 +81,7 @@ function App() {
   const initialState : EPF = {
     dividenHistory: {
       year: new Date().getFullYear() - 1, //year: 2012,
-      dividend_interest: 5.50,
+      dividend_interest: 5.75,
       inputValue: -1,
     },
     open_acc1: 75000,
