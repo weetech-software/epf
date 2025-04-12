@@ -1415,7 +1415,7 @@ function App() {
                       width: "100%",
                       "& .super-app-theme--cell": {
                         backgroundColor: "#b3e5fc",
-                        color: "#03a9f4",
+                        color: "#101a1e",
                         fontWeight: "600",
                       },
                       "& .bold": {
