@@ -1,6 +1,6 @@
 initial setup
 ```
-source init-env-nodejs20.sh
+source init-env-nodejs19.sh
 npx create-react-app epf --template typescript
 npm install @mui/material @emotion/react @emotion/styled
 npm install @fontsource/roboto @mui/icons-material @mui/x-data-grid
@@ -9,7 +9,7 @@ npm start
 
 start
 ```
-source init-env-nodejs20.sh
+source init-env-nodejs21.sh
 npm start
 ```
 
@@ -29,4 +29,14 @@ github pages
   "predeploy": "npm run build",
   "deploy": "gh-pages -d build",
 
+```
+
+upgrade node
+```
+$ # move to another dir
+$ mv node_modules/ node_modules-20
+$ source init-env-nodejs21.sh
+$ npm install
+$ # check
+$ npm start
 ```
