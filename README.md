@@ -9,7 +9,7 @@ npm start
 
 start
 ```
-source init-env-nodejs21.sh
+source init-env-nodejs22-4-0.sh
 npm start
 ```
 
@@ -34,8 +34,8 @@ github pages
 upgrade node
 ```
 $ # move to another dir
-$ mv node_modules/ node_modules-20
-$ source init-env-nodejs21.sh
+$ mv node_modules/ node_modules-21
+$ source init-env-nodejs22-4-0.sh
 $ npm install
 $ # check
 $ npm start
