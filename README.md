@@ -31,6 +31,35 @@ github pages
 
 ```
 
+check if package require update
+```
+$ # check if there is any update
+$ npm outdated
+$ npm list --depth=0
+$ # update existing packages
+$ npm update
+$ # actual upgrade
+$ npx npm-check-updates -u
+$ npm install
+$ # check if there is any existing UI break
+$ # commit package.json and package-lock.json
+```
+
+guide on actual upgrade
+```
+First: tooling (eslint, prettier, testing libs, vite/webpack, etc.)
+Then: TypeScript (4.9 → 5.x, usually safe)
+Then: React + MUI (biggest risk, test UI thoroughly)
+
+npm install typescript@latest
+npm run build
+If build/test pass → commit → continue.
+
+to upgrade a package
+$ npm install package-name@latest
+
+```
+
 upgrade node
 ```
 $ # move to another dir
