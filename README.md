@@ -9,7 +9,7 @@ npm start
 
 start
 ```
-source init-env-nodejs24.sh
+source init-env-nodejs25.sh
 npm start
 ```
 
@@ -63,8 +63,8 @@ $ npm install package-name@latest
 upgrade node
 ```
 $ # move to another dir
-$ mv node_modules/ node_modules-22
-$ source init-env-nodejs24.sh
+$ mv node_modules/ node_modules-24
+$ source init-env-nodejs25.sh
 $ npm install
 $ # check
 $ npm start
