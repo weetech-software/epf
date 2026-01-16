@@ -33,6 +33,12 @@ const dividenHistories: readonly IDividenHistory[] = [
   { year: 2019, dividend_interest: 5.45 },
   { year: 2018, dividend_interest: 6.15 },
   { year: 2017, dividend_interest: 6.90 },
+  { year: 2016, dividend_interest: 5.70 },
+  { year: 2015, dividend_interest: 6.40 },
+  { year: 2014, dividend_interest: 6.75 },
+  { year: 2013, dividend_interest: 6.35 },
+  { year: 2012, dividend_interest: 6.15 },
+  { year: 2011, dividend_interest: 6.00 },
 ];
 
 const filter = createFilterOptions<IDividenHistory>();
