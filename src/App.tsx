@@ -24,7 +24,7 @@ interface IDividenHistory {
 }
 
 const dividenHistories: readonly IDividenHistory[] = [
-  { year: 2025, dividend_interest: 6.00 },
+  { year: 2025, dividend_interest: 6.15 },
   { year: 2024, dividend_interest: 6.30 },
   { year: 2023, dividend_interest: 5.50 },
   { year: 2022, dividend_interest: 5.35 },
@@ -88,7 +88,7 @@ function App() {
   const initialState : EPF = {
     dividenHistory: {
       year: new Date().getFullYear() - 1, //year: 2012,
-      dividend_interest: 6.00,
+      dividend_interest: 6.15,
       inputValue: -1,
     },
     open_acc1: 75000,
